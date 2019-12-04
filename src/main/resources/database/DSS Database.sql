@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.16, for Win64 (x86_64)
 --
--- Host: localhost    Database: ds
+-- Host: localhost    Database: decisionsuportdb
 -- ------------------------------------------------------
 -- Server version	8.0.16
 
@@ -14,6 +14,30 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `di_ung`
+--
+
+DROP TABLE IF EXISTS `di_ung`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `di_ung` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ten` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `di_ung`
+--
+
+LOCK TABLES `di_ung` WRITE;
+/*!40000 ALTER TABLE `di_ung` DISABLE KEYS */;
+INSERT INTO `di_ung` VALUES (1,'hành tây'),(2,'tiêu đen'),(3,'cá lóc'),(4,'hành'),(5,'Cua'),(6,'húng'),(7,'Tôm'),(8,'hành');
+/*!40000 ALTER TABLE `di_ung` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `mon_an`
@@ -161,4 +185,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-04 16:12:46
+-- Dump completed on 2019-12-04 22:41:23

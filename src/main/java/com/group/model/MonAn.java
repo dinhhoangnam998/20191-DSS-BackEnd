@@ -1,10 +1,14 @@
 package com.group.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Proxy;
 
@@ -36,6 +40,9 @@ public class MonAn {
 	private QuocGia nguonGoc;
 	@ManyToOne
 	private TheLoai theLoai;
+	
+	@OneToMany(mappedBy = "monAn", fetch = FetchType.EAGER)
+	private List<MonAnNguyenLieu> monAnNguyenLieus;
 
 	@Override
 	public String toString() {

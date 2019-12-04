@@ -26,6 +26,7 @@ public class MonAnNguyenLieu {
 
 	@OneToOne
 	private MonAn monAn;
+	
 	@OneToOne
 	private NguyenLieu nguyenLieu;
 }

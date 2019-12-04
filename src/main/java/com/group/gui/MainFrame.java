@@ -25,6 +25,7 @@ import com.group.enums.DoNgot;
 import com.group.enums.DoPhoBien;
 import com.group.enums.GiaTien;
 import com.group.model.DiUng;
+import com.group.model.MonAn;
 import com.group.model.QuocGia;
 import com.group.model.TheLoai;
 import com.group.service.DiUngS;
@@ -36,6 +37,7 @@ import com.group.service.TheLoaiS;
 import com.group.topsis.BoLoc;
 import com.group.topsis.BoTieuChi;
 import com.group.topsis.BoTrongSo;
+import com.group.topsis.TOPSIS;
 
 @Controller
 public class MainFrame {
@@ -264,6 +266,13 @@ public class MainFrame {
 		datMonPanel.add(danhSachDatMonPanel);
 
 		timKiemBTN = new JButton("Tìm món ăn phù hợp");
+		timKiemBTN.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<MonAn> ketQuaTimKiem =  topsis.userInputOccured(collectInfoOnBoLoc(), collectInfoOnBoTieuChi(), collectionInfoOnBoTrongSo());
+				System.out.println(ketQuaTimKiem.size());
+				
+			}
+		});
 		timKiemBTN.setBounds(345, 334, 215, 25);
 		datMonPanel.add(timKiemBTN);
 
@@ -276,6 +285,10 @@ public class MainFrame {
 		datMonPanel.add(datMonBTN);
 		frame.getContentPane().setLayout(groupLayout);
 
+	}
+
+	public void displayFrame() {
+		frame.setVisible(true);
 	}
 
 	@Autowired
@@ -297,9 +310,13 @@ public class MainFrame {
 		List<TheLoai> tls = tlS.tlR.findAll();
 		List<QuocGia> qgs = qgS.qgR.findAll();
 		List<DiUng> dus = duS.duR.findAll();
+		TheLoai allTheLoai = tlS.tlR.findByTen("ALL");
+		QuocGia allNguonGoc = qgS.qgR.findByTen("ALL");
+		
 		loaiMonCB.setModel(new DefaultComboBoxModel<>(tls.toArray()));
+		loaiMonCB.setSelectedItem(allTheLoai);
 		nguonGocCB.setModel(new DefaultComboBoxModel<>(qgs.toArray()));
-		nguonGocCB.setSelectedIndex(qgs.size() - 1);
+		nguonGocCB.setSelectedItem(allNguonGoc);
 		diUngCB.setModel(new DefaultComboBoxModel<>(dus.toArray()));
 		giaTuCB.setModel(new DefaultComboBoxModel<Integer>(mucGiaArr));
 		choDenCB.setModel(new DefaultComboBoxModel<Integer>(mucGiaArr));
@@ -330,8 +347,9 @@ public class MainFrame {
 		return new BoTrongSo(doCaySD.getValue(), doNgotSD.getValue(), doDinhDuongSD.getValue(), doPhoBienSD.getValue(),
 				giaTienSD.getValue());
 	}
+	
+	@Autowired
+	private TOPSIS topsis;
+	
 
-	public void displayFrame() {
-		frame.setVisible(true);
-	}
 }
