@@ -60,6 +60,8 @@ public class MainFrame {
 	private JSlider giaTienSD;
 	private JButton timKiemBTN;
 	private JButton datMonBTN;
+	private MonAnResultPanel ketquaTimKiemPanel;
+	private JPanel danhSachDatMonPanel;
 
 	public MainFrame() {
 		initialize();
@@ -251,14 +253,14 @@ public class MainFrame {
 		label_3.setBounds(267, 243, 94, 16);
 		boTieuChiPanel.add(label_3);
 
-		JPanel ketquaPanel = new JPanel();
-		ketquaPanel.setBorder(new TitledBorder(null, "K\u1EBFt qu\u1EA3 t\u00ECm ki\u1EBFm", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
-		ketquaPanel.setBounds(12, 362, 919, 240);
-		datMonPanel.add(ketquaPanel);
-		ketquaPanel.setLayout(null);
+		ketquaTimKiemPanel = new MonAnResultPanel();
+		ketquaTimKiemPanel.setBorder(new TitledBorder(null, "K\u1EBFt qu\u1EA3 t\u00ECm ki\u1EBFm",
+				TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		ketquaTimKiemPanel.setBounds(12, 362, 919, 240);
+		datMonPanel.add(ketquaTimKiemPanel);
+//		ketquaTimKiemPanel.setLayout(null);
 
-		JPanel danhSachDatMonPanel = new JPanel();
+		danhSachDatMonPanel = new JPanel();
 		danhSachDatMonPanel.setBorder(new TitledBorder(null, "Danh s\u00E1ch m\u00F3n \u0111\u00E3 ch\u1ECDn",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		danhSachDatMonPanel.setLayout(null);
@@ -268,9 +270,10 @@ public class MainFrame {
 		timKiemBTN = new JButton("Tìm món ăn phù hợp");
 		timKiemBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<MonAn> ketQuaTimKiem =  topsis.userInputOccured(collectInfoOnBoLoc(), collectInfoOnBoTieuChi(), collectionInfoOnBoTrongSo());
+				List<MonAn> ketQuaTimKiem = topsis.userInputOccured(collectInfoOnBoLoc(), collectInfoOnBoTieuChi(),
+						collectionInfoOnBoTrongSo());
 				System.out.println(ketQuaTimKiem.size());
-				
+				ketquaTimKiemPanel.displayData(ketQuaTimKiem);
 			}
 		});
 		timKiemBTN.setBounds(345, 334, 215, 25);
@@ -310,13 +313,11 @@ public class MainFrame {
 		List<TheLoai> tls = tlS.tlR.findAll();
 		List<QuocGia> qgs = qgS.qgR.findAll();
 		List<DiUng> dus = duS.duR.findAll();
-		TheLoai allTheLoai = tlS.tlR.findByTen("ALL");
-		QuocGia allNguonGoc = qgS.qgR.findByTen("ALL");
-		
+
 		loaiMonCB.setModel(new DefaultComboBoxModel<>(tls.toArray()));
-		loaiMonCB.setSelectedItem(allTheLoai);
+		loaiMonCB.setSelectedIndex(tls.size() - 1);
 		nguonGocCB.setModel(new DefaultComboBoxModel<>(qgs.toArray()));
-		nguonGocCB.setSelectedItem(allNguonGoc);
+		nguonGocCB.setSelectedIndex(qgs.size() - 1);
 		diUngCB.setModel(new DefaultComboBoxModel<>(dus.toArray()));
 		giaTuCB.setModel(new DefaultComboBoxModel<Integer>(mucGiaArr));
 		choDenCB.setModel(new DefaultComboBoxModel<Integer>(mucGiaArr));
@@ -347,9 +348,8 @@ public class MainFrame {
 		return new BoTrongSo(doCaySD.getValue(), doNgotSD.getValue(), doDinhDuongSD.getValue(), doPhoBienSD.getValue(),
 				giaTienSD.getValue());
 	}
-	
+
 	@Autowired
 	private TOPSIS topsis;
-	
 
 }

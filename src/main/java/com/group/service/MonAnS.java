@@ -45,18 +45,30 @@ public class MonAnS {
 		// loai bo cac mon bi di ung
 		List<MonAn> ketQuaCuoi = new ArrayList<MonAn>();
 		for (MonAn ma : ketQuaBanDau) {
-			List<String> nguyenLieu = new ArrayList<String>();
-			for (MonAnNguyenLieu manl : ma.getMonAnNguyenLieus()) {
-				if(manl != null && manl.getNguyenLieu() != null) {
-					nguyenLieu.add(manl.getNguyenLieu().getTen());
-				}
-			}
-
+			List<String> nguyenLieu = getNguyenLieu(ma);
 			if (!nguyenLieu.contains(boLoc.getDiUng().getTen())) {
 				ketQuaCuoi.add(ma);
 			}
 		}
 
 		return ketQuaCuoi;
+	}
+
+	public static List<String> getNguyenLieu(MonAn ma) {
+		List<String> nguyenLieus = new ArrayList<String>();
+		for (MonAnNguyenLieu manl : ma.getMonAnNguyenLieus()) {
+			nguyenLieus.add(manl.getNguyenLieu().getTen());
+		}
+		return nguyenLieus;
+	}
+
+	public static String toStringNguyenLieu(MonAn ma) {
+		List<String> nguyenLieus = getNguyenLieu(ma);
+		String result = "";
+		for (String s : nguyenLieus) {
+			result += s;
+			result += ", ";
+		}
+		return result;
 	}
 }
