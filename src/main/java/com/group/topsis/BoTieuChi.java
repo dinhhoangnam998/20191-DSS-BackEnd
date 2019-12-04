@@ -1,6 +1,6 @@
-package com.group.model;
+package com.group.topsis;
 
-import com.group.model.enums.DoCay;
+import com.group.enums.DoCay;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

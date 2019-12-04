@@ -1,4 +1,4 @@
-package com.group.model.entity;
+package com.group.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Proxy(lazy = false)
-public class TheLoai {
+public class NguyenLieu {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;

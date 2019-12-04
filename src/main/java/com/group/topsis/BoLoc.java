@@ -1,8 +1,8 @@
-package com.group.model;
+package com.group.topsis;
 
-import com.group.model.entity.DiUng;
-import com.group.model.entity.QuocGia;
-import com.group.model.entity.TheLoai;
+import com.group.model.DiUng;
+import com.group.model.QuocGia;
+import com.group.model.TheLoai;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

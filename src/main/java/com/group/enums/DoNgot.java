@@ -1,4 +1,4 @@
-package com.group.model.enums;
+package com.group.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

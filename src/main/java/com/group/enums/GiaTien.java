@@ -1,4 +1,4 @@
-package com.group.model.enums;
+package com.group.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum GiaTien {
 
-	CAO("Cao", 2), TRUNG_BINH("Trung Bình", 1), THAP("Thấp", 0);
+	THAP("Thấp", 0), TRUNG_BINH("Trung Bình", 1), CAO("Cao", 2);
 
 	private final String text;
 	private int value;
