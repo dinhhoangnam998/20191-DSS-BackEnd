@@ -24,4 +24,8 @@ public class NguyenLieu {
 	private Integer id;
 	private String ten;
 
+	@Override
+	public String toString() {
+		return ten;
+	}
 }

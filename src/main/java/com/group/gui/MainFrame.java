@@ -2,6 +2,7 @@ package com.group.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -23,18 +24,24 @@ import com.group.enums.DoDinhDuong;
 import com.group.enums.DoNgot;
 import com.group.enums.DoPhoBien;
 import com.group.enums.GiaTien;
+import com.group.model.DiUng;
+import com.group.model.QuocGia;
+import com.group.model.TheLoai;
 import com.group.service.DiUngS;
 import com.group.service.MonAnNguyenLieuS;
 import com.group.service.MonAnS;
 import com.group.service.NguyenLieuS;
 import com.group.service.QuocGiaS;
 import com.group.service.TheLoaiS;
+import com.group.topsis.BoLoc;
+import com.group.topsis.BoTieuChi;
+import com.group.topsis.BoTrongSo;
 
 @Controller
 public class MainFrame {
-	public JFrame frame;
+	private JFrame frame;
 
-	protected JComboBox loaiMonCB;
+	private JComboBox loaiMonCB;
 	private JComboBox nguonGocCB;
 	private JComboBox diUngCB;
 	private JComboBox giaTuCB;
@@ -269,7 +276,6 @@ public class MainFrame {
 		datMonPanel.add(datMonBTN);
 		frame.getContentPane().setLayout(groupLayout);
 
-		frame.setVisible(true);
 	}
 
 	@Autowired
@@ -284,4 +290,48 @@ public class MainFrame {
 	private QuocGiaS qgS;
 	@Autowired
 	private TheLoaiS tlS;
+
+	final Integer[] mucGiaArr = { 0, 100, 200, 300, 400, 500, 600, 700, 800, 900 };
+
+	public void injectData() {
+		List<TheLoai> tls = tlS.tlR.findAll();
+		List<QuocGia> qgs = qgS.qgR.findAll();
+		List<DiUng> dus = duS.duR.findAll();
+		loaiMonCB.setModel(new DefaultComboBoxModel<>(tls.toArray()));
+		nguonGocCB.setModel(new DefaultComboBoxModel<>(qgs.toArray()));
+		nguonGocCB.setSelectedIndex(qgs.size() - 1);
+		diUngCB.setModel(new DefaultComboBoxModel<>(dus.toArray()));
+		giaTuCB.setModel(new DefaultComboBoxModel<Integer>(mucGiaArr));
+		choDenCB.setModel(new DefaultComboBoxModel<Integer>(mucGiaArr));
+		choDenCB.setSelectedIndex(mucGiaArr.length - 1);
+	}
+
+	public BoLoc collectInfoOnBoLoc() {
+		BoLoc boloc = new BoLoc();
+		boloc.setDiUng((DiUng) diUngCB.getSelectedItem());
+		boloc.setNguonGoc((QuocGia) nguonGocCB.getSelectedItem());
+		boloc.setTheLoai((TheLoai) loaiMonCB.getSelectedItem());
+		boloc.setGiaLonNhat((int) giaTuCB.getSelectedItem());
+		boloc.setGiaLonNhat((int) choDenCB.getSelectedItem());
+		return boloc;
+	}
+
+	public BoTieuChi collectInfoOnBoTieuChi() {
+		BoTieuChi btc = new BoTieuChi();
+		btc.setDoCay((DoCay) doCayCB.getSelectedItem());
+		btc.setDoNgot((DoNgot) doNgotCB.getSelectedItem());
+		btc.setDoDinhDuong((DoDinhDuong) doDinhDuongCB.getSelectedItem());
+		btc.setDoPhoBien((DoPhoBien) doPhoBienCB.getSelectedItem());
+		btc.setGiaTien((GiaTien) giaTienCB.getSelectedItem());
+		return btc;
+	}
+
+	public BoTrongSo collectionInfoOnBoTrongSo() {
+		return new BoTrongSo(doCaySD.getValue(), doNgotSD.getValue(), doDinhDuongSD.getValue(), doPhoBienSD.getValue(),
+				giaTienSD.getValue());
+	}
+
+	public void displayFrame() {
+		frame.setVisible(true);
+	}
 }

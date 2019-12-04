@@ -24,4 +24,8 @@ public class TheLoai {
 	private Integer id;
 	private String ten;
 
+	@Override
+	public String toString() {
+		return ten;
+	}
 }

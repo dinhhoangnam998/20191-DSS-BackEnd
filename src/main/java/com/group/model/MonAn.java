@@ -36,4 +36,11 @@ public class MonAn {
 	private QuocGia nguonGoc;
 	@ManyToOne
 	private TheLoai theLoai;
+
+	@Override
+	public String toString() {
+		return ten;
+	}
+	
+	
 }
