@@ -1,4 +1,4 @@
-package com.group.gui;
+package com.group.gui.table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import com.group.model.MonAn;
 import com.group.service.MonAnS;
 
 public class MonAnTableModel extends AbstractTableModel {
-	private List<MonAn> monAns = new ArrayList<>();
+	public List<MonAn> monAns = new ArrayList<>();
 	private String[] columns = { "Tên", "Thể loại", "Nguồn gốc", "Giá", "Thành phần" };
 
 	public MonAnTableModel() {

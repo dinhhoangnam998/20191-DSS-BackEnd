@@ -2,6 +2,8 @@ package com.group.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -24,6 +26,7 @@ import com.group.enums.DoDinhDuong;
 import com.group.enums.DoNgot;
 import com.group.enums.DoPhoBien;
 import com.group.enums.GiaTien;
+import com.group.gui.table.MonAnTablePanel;
 import com.group.model.DiUng;
 import com.group.model.MonAn;
 import com.group.model.QuocGia;
@@ -60,8 +63,8 @@ public class MainFrame {
 	private JSlider giaTienSD;
 	private JButton timKiemBTN;
 	private JButton datMonBTN;
-	private MonAnResultPanel ketquaTimKiemPanel;
-	private JPanel danhSachDatMonPanel;
+	private MonAnTablePanel ketquaTimKiemPanel;
+	private MonAnTablePanel danhSachDatMonPanel;
 
 	public MainFrame() {
 		initialize();
@@ -253,26 +256,37 @@ public class MainFrame {
 		label_3.setBounds(267, 243, 94, 16);
 		boTieuChiPanel.add(label_3);
 
-		ketquaTimKiemPanel = new MonAnResultPanel();
+		ketquaTimKiemPanel = new MonAnTablePanel();
 		ketquaTimKiemPanel.setBorder(new TitledBorder(null, "K\u1EBFt qu\u1EA3 t\u00ECm ki\u1EBFm",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		ketquaTimKiemPanel.setBounds(12, 362, 919, 240);
 		datMonPanel.add(ketquaTimKiemPanel);
-//		ketquaTimKiemPanel.setLayout(null);
+		ketquaTimKiemPanel.table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MonAn monAnMoiDuocChon = ketquaTimKiemPanel.getMonAnVuaDuocChon();
+				danhSachDatMonPanel.addMonAn(monAnMoiDuocChon);
+			}
+		});
 
-		danhSachDatMonPanel = new JPanel();
+		danhSachDatMonPanel = new MonAnTablePanel();
 		danhSachDatMonPanel.setBorder(new TitledBorder(null, "Danh s\u00E1ch m\u00F3n \u0111\u00E3 ch\u1ECDn",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		danhSachDatMonPanel.setLayout(null);
 		danhSachDatMonPanel.setBounds(12, 615, 919, 184);
 		datMonPanel.add(danhSachDatMonPanel);
+		danhSachDatMonPanel.table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int index = danhSachDatMonPanel.getRowIndexVuaDuocChon();
+				danhSachDatMonPanel.removeMonAn(index);
+			}
+		});
 
 		timKiemBTN = new JButton("Tìm món ăn phù hợp");
 		timKiemBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<MonAn> ketQuaTimKiem = topsis.userInputOccured(collectInfoOnBoLoc(), collectInfoOnBoTieuChi(),
 						collectionInfoOnBoTrongSo());
-				System.out.println(ketQuaTimKiem.size());
 				ketquaTimKiemPanel.displayData(ketQuaTimKiem);
 			}
 		});
