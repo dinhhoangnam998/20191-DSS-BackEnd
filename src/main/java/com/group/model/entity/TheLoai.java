@@ -1,10 +1,9 @@
-package com.group.model;
+package com.group.model.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Proxy;
 
@@ -19,13 +18,10 @@ import lombok.Setter;
 @Setter
 @Entity
 @Proxy(lazy = false)
-public class MonAnNguyenLieu {
+public class TheLoai {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String ten;
 
-	@OneToOne
-	private MonAn monAn;
-	@OneToOne
-	private NguyenLieu nguyenLieu;
 }

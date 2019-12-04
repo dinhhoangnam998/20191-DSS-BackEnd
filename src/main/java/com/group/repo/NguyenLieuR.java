@@ -2,7 +2,7 @@ package com.group.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.group.model.NguyenLieu;
+import com.group.model.entity.NguyenLieu;
 
 public interface NguyenLieuR  extends JpaRepository<NguyenLieu, Integer> {
 
