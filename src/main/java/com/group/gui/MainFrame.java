@@ -1,9 +1,12 @@
 package com.group.gui;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -17,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
+import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +42,12 @@ import com.group.service.MonAnS;
 import com.group.service.NguyenLieuS;
 import com.group.service.QuocGiaS;
 import com.group.service.TheLoaiS;
+import com.group.topsis.BoTieuChiChuan;
 import com.group.topsis.TOPSIS;
 import com.group.topsis.user.BoLoc;
 import com.group.topsis.user.BoTieuChi;
 import com.group.topsis.user.BoTrongSo;
+import com.group.topsis.user.BoTrongSoChuan;
 
 @Controller
 public class MainFrame {
@@ -288,6 +294,8 @@ public class MainFrame {
 			public void actionPerformed(ActionEvent e) {
 				topsis.setup(collectInfoOnBoLoc(), collectInfoOnBoTieuChi(), collectionInfoOnBoTrongSo());
 				ketquaTimKiemPanel.displayData(topsis.getKetQuaCuoiCung());
+				injectDataToTopsisPanel();
+
 			}
 		});
 		timKiemBTN.setBounds(345, 334, 215, 25);
@@ -301,157 +309,246 @@ public class MainFrame {
 		});
 		datMonBTN.setBounds(345, 812, 215, 25);
 		datMonPanel.add(datMonBTN);
-		
+
 		topsisPanel = new JPanel();
 		tabbedPane.addTab("TOPSIS", null, topsisPanel, null);
 		topsisPanel.setLayout(null);
-		
+
 		panel = new JPanel();
-		panel.setBounds(12, 13, 304, 207);
+		panel.setBounds(12, 13, 304, 169);
 		panel.setLayout(null);
-		panel.setBorder(new TitledBorder(null, "B\u1ED9 l\u1ECDc k\u1EBFt qu\u1EA3", TitledBorder.LEFT,
-						TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(null, "B\u1ED9 l\u1ECDc k\u1EBFt qu\u1EA3", TitledBorder.LEFT,
+
+				TitledBorder.TOP, null, null));
 		topsisPanel.add(panel);
-		
+
 		label_4 = new JLabel("Loại món");
-		label_4.setBounds(29, 33, 52, 16);
+		label_4.setBounds(46, 20, 52, 16);
 		panel.add(label_4);
-		
+
 		label_5 = new JLabel("Nguồn gốc");
-		label_5.setBounds(29, 69, 60, 16);
+		label_5.setBounds(46, 50, 60, 16);
 		panel.add(label_5);
-		
+
 		label_6 = new JLabel("Dị ứng");
-		label_6.setBounds(29, 105, 37, 16);
+		label_6.setBounds(46, 80, 37, 16);
 		panel.add(label_6);
-		
-		label_7 = new JLabel("Giá từ");
-		label_7.setBounds(29, 141, 34, 16);
-		panel.add(label_7);
-		
-		label_8 = new JLabel("Cho đến");
-		label_8.setBounds(29, 177, 47, 16);
-		panel.add(label_8);
-		
-		JLabel label_29 = new JLabel("Mức ưu tiên");
-		label_29.setBounds(143, 33, 94, 16);
-		panel.add(label_29);
-		
-		JLabel label_30 = new JLabel("Mức ưu tiên");
-		label_30.setBounds(143, 69, 94, 16);
-		panel.add(label_30);
-		
-		JLabel label_31 = new JLabel("Mức ưu tiên");
-		label_31.setBounds(143, 105, 94, 16);
-		panel.add(label_31);
-		
-		JLabel label_32 = new JLabel("Mức ưu tiên");
-		label_32.setBounds(143, 141, 94, 16);
-		panel.add(label_32);
-		
-		JLabel label_33 = new JLabel("Mức ưu tiên");
-		label_33.setBounds(143, 177, 94, 16);
-		panel.add(label_33);
-		
+
+		lblChon_1 = new JLabel("Cho đến");
+		lblChon_1.setBounds(46, 140, 60, 16);
+		panel.add(lblChon_1);
+
+		lblGiT_1 = new JLabel("Giá từ");
+		lblGiT_1.setBounds(46, 110, 47, 16);
+		panel.add(lblGiT_1);
+
+		loaimon = new JLabel("Mức ưu tiên");
+		loaimon.setBounds(187, 20, 94, 16);
+		panel.add(loaimon);
+
+		nguongoc = new JLabel("Mức ưu tiên");
+		nguongoc.setBounds(187, 50, 94, 16);
+		panel.add(nguongoc);
+
+		diung = new JLabel("Mức ưu tiên");
+		diung.setBounds(187, 80, 94, 16);
+		panel.add(diung);
+
+		giatu = new JLabel("Mức ưu tiên");
+		giatu.setBounds(187, 110, 94, 16);
+		panel.add(giatu);
+
+		choden = new JLabel("Mức ưu tiên");
+		choden.setBounds(187, 140, 94, 16);
+		panel.add(choden);
+
 		panel_1 = new JPanel();
-		panel_1.setBounds(328, 13, 586, 207);
+		panel_1.setBounds(328, 13, 586, 169);
 		panel_1.setLayout(null);
-		panel_1.setBorder(new TitledBorder(null, "Ti\u00EAu ch\u00ED \u0111\u00E1nh gi\u00E1",
-						TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBorder(new TitledBorder(null, "Ti\u00EAu ch\u00ED \u0111\u00E1nh gi\u00E1",
+
+				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		topsisPanel.add(panel_1);
-		
+
 		label_9 = new JLabel("Độ cay");
-		label_9.setBounds(12, 33, 94, 16);
+		label_9.setBounds(12, 20, 94, 16);
 		panel_1.add(label_9);
-		
+
 		label_10 = new JLabel("Độ ngọt");
-		label_10.setBounds(12, 69, 94, 16);
+		label_10.setBounds(12, 50, 94, 16);
 		panel_1.add(label_10);
-		
+
 		label_11 = new JLabel("Độ dinh dưỡng");
-		label_11.setBounds(12, 105, 94, 16);
+		label_11.setBounds(12, 80, 94, 16);
 		panel_1.add(label_11);
-		
+
 		label_12 = new JLabel("Độ phổ biến");
-		label_12.setBounds(12, 141, 94, 16);
+		label_12.setBounds(12, 110, 94, 16);
 		panel_1.add(label_12);
-		
+
 		label_13 = new JLabel("Giá tiền");
-		label_13.setBounds(12, 177, 94, 16);
+		label_13.setBounds(12, 140, 94, 16);
 		panel_1.add(label_13);
-		
+
 		label_14 = new JLabel("Mức ưu tiên");
-		label_14.setBounds(267, 33, 94, 16);
+		label_14.setBounds(299, 20, 94, 16);
 		panel_1.add(label_14);
-		
+
 		label_15 = new JLabel("Mức ưu tiên");
-		label_15.setBounds(267, 69, 94, 16);
+		label_15.setBounds(299, 50, 94, 16);
 		panel_1.add(label_15);
-		
+
 		label_16 = new JLabel("Mức ưu tiên");
-		label_16.setBounds(267, 105, 94, 16);
+		label_16.setBounds(299, 80, 94, 16);
 		panel_1.add(label_16);
-		
+
 		label_17 = new JLabel("Mức ưu tiên");
-		label_17.setBounds(267, 141, 94, 16);
+		label_17.setBounds(299, 110, 94, 16);
 		panel_1.add(label_17);
-		
+
 		label_18 = new JLabel("Mức ưu tiên");
-		label_18.setBounds(267, 177, 94, 16);
+		label_18.setBounds(299, 140, 94, 16);
 		panel_1.add(label_18);
-		
-		JLabel label_19 = new JLabel("Mức ưu tiên");
-		label_19.setBounds(414, 33, 94, 16);
-		panel_1.add(label_19);
-		
-		JLabel label_20 = new JLabel("Mức ưu tiên");
-		label_20.setBounds(414, 69, 94, 16);
-		panel_1.add(label_20);
-		
-		JLabel label_21 = new JLabel("Mức ưu tiên");
-		label_21.setBounds(414, 105, 94, 16);
-		panel_1.add(label_21);
-		
-		JLabel label_22 = new JLabel("Mức ưu tiên");
-		label_22.setBounds(414, 141, 94, 16);
-		panel_1.add(label_22);
-		
-		JLabel label_23 = new JLabel("Mức ưu tiên");
-		label_23.setBounds(414, 177, 94, 16);
-		panel_1.add(label_23);
-		
-		JLabel label_24 = new JLabel("Mức ưu tiên");
-		label_24.setBounds(118, 33, 94, 16);
-		panel_1.add(label_24);
-		
-		JLabel label_25 = new JLabel("Mức ưu tiên");
-		label_25.setBounds(118, 69, 94, 16);
-		panel_1.add(label_25);
-		
-		JLabel label_26 = new JLabel("Mức ưu tiên");
-		label_26.setBounds(118, 105, 94, 16);
-		panel_1.add(label_26);
-		
-		JLabel label_27 = new JLabel("Mức ưu tiên");
-		label_27.setBounds(118, 141, 94, 16);
-		panel_1.add(label_27);
-		
-		JLabel label_28 = new JLabel("Mức ưu tiên");
-		label_28.setBounds(118, 177, 94, 16);
-		panel_1.add(label_28);
-		
+
+		tsdocay = new JLabel("Mức ưu tiên");
+		tsdocay.setBounds(441, 20, 94, 16);
+		panel_1.add(tsdocay);
+
+		tsdongot = new JLabel("Mức ưu tiên");
+		tsdongot.setBounds(441, 50, 94, 16);
+		panel_1.add(tsdongot);
+
+		tsdodinhduong = new JLabel("Mức ưu tiên");
+		tsdodinhduong.setBounds(441, 80, 94, 16);
+		panel_1.add(tsdodinhduong);
+
+		tsdophobien = new JLabel("Mức ưu tiên");
+		tsdophobien.setBounds(441, 110, 94, 16);
+		panel_1.add(tsdophobien);
+
+		tsgiatien = new JLabel("Mức ưu tiên");
+		tsgiatien.setBounds(441, 140, 94, 16);
+		panel_1.add(tsgiatien);
+
+		docay = new JLabel("Mức ưu tiên");
+		docay.setBounds(157, 20, 94, 16);
+		panel_1.add(docay);
+
+		dongot = new JLabel("Mức ưu tiên");
+		dongot.setBounds(157, 50, 94, 16);
+		panel_1.add(dongot);
+
+		dodinhduong = new JLabel("Mức ưu tiên");
+		dodinhduong.setBounds(157, 80, 94, 16);
+		panel_1.add(dodinhduong);
+
+		dophobien = new JLabel("Mức ưu tiên");
+		dophobien.setBounds(157, 110, 94, 16);
+		panel_1.add(dophobien);
+
+		giatien = new JLabel("Mức ưu tiên");
+		giatien.setBounds(157, 140, 94, 16);
+		panel_1.add(giatien);
+
 		panel_2 = new JPanel();
-		panel_2.setBounds(12, 233, 913, 101);
-		panel_2.setBorder(new TitledBorder(null, "Chu\u1EA9n h\u00F3a th\u00F4ng tin ng\u01B0\u1EDDi d\u00F9ng", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBounds(12, 189, 902, 112);
+		panel_2.setBorder(new TitledBorder(null, "Chu\u1EA9n h\u00F3a th\u00F4ng tin ng\u01B0\u1EDDi d\u00F9ng",
+				TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		topsisPanel.add(panel_2);
-		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(12, 357, 913, 207);
+		panel_2.setLayout(null);
+
+		label_34 = new JLabel("Độ cay");
+		label_34.setBounds(189, 24, 94, 16);
+		panel_2.add(label_34);
+
+		lblNgt_1 = new JLabel("Độ ngọt");
+		lblNgt_1.setBounds(331, 24, 94, 16);
+		panel_2.add(lblNgt_1);
+
+		lblDinhDng_1 = new JLabel("Độ dinh dưỡng");
+		lblDinhDng_1.setBounds(473, 24, 94, 16);
+		panel_2.add(lblDinhDng_1);
+
+		lblPhBin_1 = new JLabel("Độ phổ biến");
+		lblPhBin_1.setBounds(615, 24, 94, 16);
+		panel_2.add(lblPhBin_1);
+
+		lblGiTin_1 = new JLabel("Giá tiền");
+		lblGiTin_1.setBounds(757, 24, 94, 16);
+		panel_2.add(lblGiTin_1);
+
+		lblTieuchi = new JLabel("Tiêu Chí");
+		lblTieuchi.setBounds(47, 24, 94, 16);
+		panel_2.add(lblTieuchi);
+
+		lblGiatri = new JLabel("Giá Trị");
+		lblGiatri.setBounds(47, 53, 94, 16);
+		panel_2.add(lblGiatri);
+
+		gtdocay = new JLabel("Độ cay");
+		gtdocay.setBounds(189, 53, 94, 16);
+		panel_2.add(gtdocay);
+
+		gtdongot = new JLabel("Mức ưu tiên");
+		gtdongot.setBounds(331, 53, 94, 16);
+		panel_2.add(gtdongot);
+
+		gtdodinhduong = new JLabel("Mức ưu tiên");
+		gtdodinhduong.setBounds(473, 53, 94, 16);
+		panel_2.add(gtdodinhduong);
+
+		gtdophobien = new JLabel("Mức ưu tiên");
+		gtdophobien.setBounds(615, 53, 94, 16);
+		panel_2.add(gtdophobien);
+
+		gtgiatien = new JLabel("Mức ưu tiên");
+		gtgiatien.setBounds(757, 53, 94, 16);
+		panel_2.add(gtgiatien);
+
+		lblTrngS = new JLabel("Trọng số");
+		lblTrngS.setBounds(47, 82, 94, 16);
+		panel_2.add(lblTrngS);
+
+		tscdocay = new JLabel("Độ cay");
+		tscdocay.setBounds(189, 82, 94, 16);
+		panel_2.add(tscdocay);
+
+		tscdongot = new JLabel("Mức ưu tiên");
+		tscdongot.setBounds(331, 82, 94, 16);
+		panel_2.add(tscdongot);
+
+		tscdodinhduong = new JLabel("Mức ưu tiên");
+		tscdodinhduong.setBounds(473, 82, 94, 16);
+		panel_2.add(tscdodinhduong);
+
+		tscdophobien = new JLabel("Mức ưu tiên");
+		tscdophobien.setBounds(615, 82, 94, 16);
+		panel_2.add(tscdophobien);
+
+		tscgiatien = new JLabel("Mức ưu tiên");
+		tscgiatien.setBounds(757, 82, 94, 16);
+		panel_2.add(tscgiatien);
+
+		panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"Danh s\u00E1ch m\u00F3n \u0103n l\u1ECDc t\u1EEB Database", TitledBorder.LEADING, TitledBorder.TOP,
+				null, new Color(0, 0, 0)));
+		panel_3.setBounds(12, 303, 902, 132);
 		topsisPanel.add(panel_3);
-		
+
 		panel_4 = new JPanel();
-		panel_4.setBounds(12, 601, 913, 207);
+		panel_4.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"\u0110\u01B0a thu\u1ED9c t\u00EDnh c\u00E1c m\u00F3n \u0103n v\u1EC1 kho\u1EA3ng 0 - 1",
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_4.setBounds(12, 443, 902, 152);
 		topsisPanel.add(panel_4);
+
+		panel_5 = new JPanel();
+		panel_5.setBorder(
+				new TitledBorder(UIManager.getBorder("TitledBorder.border"), "B\u1EA3ng quy\u1EBFt \u0111\u1ECBnh",
+						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_5.setBounds(12, 598, 902, 252);
+		topsisPanel.add(panel_5);
 		frame.getContentPane().setLayout(groupLayout);
 
 	}
@@ -517,13 +614,14 @@ public class MainFrame {
 
 	@Autowired
 	private TOPSIS topsis;
+
 	private JPanel topsisPanel;
 	private JPanel panel;
 	private JLabel label_4;
 	private JLabel label_5;
 	private JLabel label_6;
-	private JLabel label_7;
-	private JLabel label_8;
+	private JLabel lblChon_1;
+	private JLabel lblGiT_1;
 	private JPanel panel_1;
 	private JLabel label_9;
 	private JLabel label_10;
@@ -536,5 +634,95 @@ public class MainFrame {
 	private JLabel label_17;
 	private JLabel label_18;
 	private JPanel panel_2;
+	private JPanel panel_3;
 	private JPanel panel_4;
+	private JPanel panel_5;
+	private JLabel label_34;
+	private JLabel lblNgt_1;
+	private JLabel lblDinhDng_1;
+	private JLabel lblPhBin_1;
+	private JLabel lblGiTin_1;
+	private JLabel lblTieuchi;
+	private JLabel lblGiatri;
+	private JLabel gtdocay;
+	private JLabel gtdongot;
+	private JLabel gtdodinhduong;
+	private JLabel gtdophobien;
+	private JLabel gtgiatien;
+	private JLabel lblTrngS;
+	private JLabel tscdocay;
+	private JLabel tscdongot;
+	private JLabel tscdodinhduong;
+	private JLabel tscdophobien;
+	private JLabel tscgiatien;
+	private JLabel loaimon;
+	private JLabel nguongoc;
+	private JLabel diung;
+	private JLabel giatu;
+	private JLabel choden;
+	private JLabel docay;
+	private JLabel dongot;
+	private JLabel dodinhduong;
+	private JLabel dophobien;
+	private JLabel giatien;
+	private JLabel tsdocay;
+	private JLabel tsdongot;
+	private JLabel tsdodinhduong;
+	private JLabel tsdophobien;
+	private JLabel tsgiatien;
+
+	private void injectDataToTopsisPanel() {
+		injectDataBoLoc();
+		injectDataTieuChi();
+		injectDataChuanHoa();
+		injectChuanHoaDuLieuNguoiDung();
+	}
+
+	private void injectDataBoLoc() {
+		BoLoc boloc = topsis.getUserInputData().getBoLoc();
+		loaimon.setText(boloc.getTheLoai().getTen());
+		nguongoc.setText(boloc.getNguonGoc().getTen());
+		diung.setText(boloc.getDiUng().getTen());
+		giatu.setText(Integer.valueOf(boloc.getGiaNhoNhat()).toString());
+		choden.setText(Integer.valueOf(boloc.getGiaLonNhat()).toString());
+	}
+
+	private void injectDataTieuChi() {
+		BoTieuChi btc = topsis.getUserInputData().getBoTieuChi();
+		docay.setText(btc.getDoCay().getText());
+		dongot.setText(btc.getDoNgot().getText());
+		dodinhduong.setText(btc.getDoDinhDuong().getText());
+		dophobien.setText(btc.getDoPhoBien().getText());
+		giatien.setText(btc.getGiaTien().getText());
+	}
+
+	private void injectDataChuanHoa() {
+		BoTrongSo bts = topsis.getUserInputData().getBoTrongSo();
+		tsdocay.setText(Integer.valueOf(bts.getWDoCay()).toString());
+		tsdongot.setText(Integer.valueOf(bts.getWDoNgot()).toString());
+		tsdodinhduong.setText(Integer.valueOf(bts.getWDoDinhDuong()).toString());
+		tsdophobien.setText(Integer.valueOf(bts.getWDoPhoBien()).toString());
+		tsgiatien.setText(Integer.valueOf(bts.getWGiaTien()).toString());
+	}
+
+	private void injectChuanHoaDuLieuNguoiDung() {
+		DecimalFormat df = new DecimalFormat("#.###");
+		df.setRoundingMode(RoundingMode.CEILING);
+		BoTieuChiChuan btcc = topsis.getUserInputChuanHoa().getBoTieuChiChuan();
+		BoTrongSoChuan btsc = topsis.getUserInputChuanHoa().getBoTrongSoChuan();
+
+		gtdocay.setText(Double.valueOf(btcc.getDoCay()).toString());
+		gtdongot.setText(Double.valueOf(btcc.getDoNgot()).toString());
+		gtdodinhduong.setText(Double.valueOf(btcc.getDoDinhDuong()).toString());
+		gtdophobien.setText(Double.valueOf(btcc.getDoPhoBien()).toString());
+		gtgiatien.setText(Double.valueOf(btcc.getGiaTien()).toString());
+
+		tscdocay.setText(df.format(btsc.getWDoCay()).toString());
+		tscdongot.setText(df.format(btsc.getWDoNgot()).toString());
+		tscdodinhduong.setText(df.format(btsc.getWDoDinhDuong()).toString());
+		tscdophobien.setText(df.format(btsc.getWDoPhoBien()).toString());
+		tscgiatien.setText(df.format(btsc.getWGiaTien()).toString());
+
+	}
+
 }
