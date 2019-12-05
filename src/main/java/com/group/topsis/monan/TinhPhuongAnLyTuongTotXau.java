@@ -27,6 +27,15 @@ public class TinhPhuongAnLyTuongTotXau {
 	}
 
 	public void setupMaxMin(List<PhuongAn> pas) {
+		if(pas.size() > 0) {
+			PhuongAn pa = pas.get(0);
+			BoTieuChiChuan b = pa.getBoTieuChiChuan();
+			doCayNhoNhat = b.getDoCay();
+			doNgotNhoNhat = b.getDoNgot();
+			doDinhDuongNhoNhat = b.getDoDinhDuong();
+			doPhoBienNhoNhat = b.getDoPhoBien();
+			giaNhoNhat = b.getGiaTien();
+		}
 		for (PhuongAn pa : pas) {
 			BoTieuChiChuan b = pa.getBoTieuChiChuan();
 			doCayLonNhat = b.getDoCay() > doCayLonNhat ? b.getDoCay() : doCayLonNhat;

@@ -68,7 +68,7 @@ public class TOPSIS {
 			double doPhuHopNgot = f(btccOfMonAn.getDoNgot(), btccOfUser.getDoNgot());
 			double doPhuHopDinhDuong = f(btccOfMonAn.getDoDinhDuong(), btccOfUser.getDoDinhDuong());
 			double doPhuHopPhoBien = f(btccOfMonAn.getDoPhoBien(), btccOfUser.getDoPhoBien());
-			double doPhuHopGiaTien = f(btccOfMonAn.getGiaTien(), btccOfMonAn.getGiaTien());
+			double doPhuHopGiaTien = f(btccOfMonAn.getGiaTien(), btccOfUser.getGiaTien());
 
 			BoTieuChiChuan boDoDoPhuHop = new BoTieuChiChuan(doPhuHopCay, doPhuHopNgot, doPhuHopDinhDuong,
 					doPhuHopPhoBien, doPhuHopGiaTien);
@@ -130,9 +130,8 @@ public class TOPSIS {
 	}
 
 	public void tinhKetQuaCuoiCung() {
-		List<PhuongAn> copyBangGiaTriV = bangGiaTriV.stream().collect(Collectors.toList());
-		ketQuaCuoiCung = copyBangGiaTriV.stream().sorted(Comparator.comparing(PhuongAn::getC))
-				.map(i -> maS.maR.getOne(i.getId())).collect(Collectors.toList());
+		bangGiaTriV.sort(Comparator.comparing(PhuongAn::getC).reversed());
+		ketQuaCuoiCung = bangGiaTriV.stream().map(i -> maS.maR.getOne(i.getId())).collect(Collectors.toList());
 
 	}
 }

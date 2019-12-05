@@ -31,8 +31,10 @@ import com.group.enums.DoDinhDuong;
 import com.group.enums.DoNgot;
 import com.group.enums.DoPhoBien;
 import com.group.enums.GiaTien;
+import com.group.gui.table.MonAnChuanTablePanel;
 import com.group.gui.table.MonAnTablePanel;
 import com.group.gui.table.PhuongAnTablePanel;
+import com.group.gui.table.ThuocTinhMonAnTablePanel;
 import com.group.model.DiUng;
 import com.group.model.MonAn;
 import com.group.model.QuocGia;
@@ -49,6 +51,7 @@ import com.group.topsis.user.BoLoc;
 import com.group.topsis.user.BoTieuChi;
 import com.group.topsis.user.BoTrongSo;
 import com.group.topsis.user.BoTrongSoChuan;
+import java.awt.SystemColor;
 
 @Controller
 public class MainFrame {
@@ -130,12 +133,13 @@ public class MainFrame {
 
 		doCayCB = new JComboBox();
 		doCayCB.setModel(new DefaultComboBoxModel(DoCay.values()));
+		doCayCB.setSelectedIndex(1);
 		doCayCB.setBounds(118, 36, 108, 22);
 		boTieuChiPanel.add(doCayCB);
 
 		doCaySD = new JSlider();
 		doCaySD.setPaintLabels(true);
-		doCaySD.setValue(0);
+		doCaySD.setValue(2);
 		doCaySD.setMajorTickSpacing(1);
 		doCaySD.setMaximum(4);
 		doCaySD.setBounds(355, 36, 200, 38);
@@ -199,11 +203,13 @@ public class MainFrame {
 
 		doDinhDuongCB = new JComboBox();
 		doDinhDuongCB.setModel(new DefaultComboBoxModel(DoDinhDuong.values()));
+		doDinhDuongCB.setSelectedIndex(2);
 		doDinhDuongCB.setBounds(118, 138, 108, 22);
 		boTieuChiPanel.add(doDinhDuongCB);
 
 		doPhoBienCB = new JComboBox();
 		doPhoBienCB.setModel(new DefaultComboBoxModel(DoPhoBien.values()));
+		doPhoBienCB.setSelectedIndex(1);
 		doPhoBienCB.setBounds(118, 189, 108, 22);
 		boTieuChiPanel.add(doPhoBienCB);
 
@@ -213,7 +219,7 @@ public class MainFrame {
 		boTieuChiPanel.add(giaTienCB);
 
 		doNgotSD = new JSlider();
-		doNgotSD.setValue(0);
+		doNgotSD.setValue(1);
 		doNgotSD.setPaintLabels(true);
 		doNgotSD.setMajorTickSpacing(1);
 		doNgotSD.setMaximum(4);
@@ -221,7 +227,7 @@ public class MainFrame {
 		boTieuChiPanel.add(doNgotSD);
 
 		doDinhDuongSD = new JSlider();
-		doDinhDuongSD.setValue(0);
+		doDinhDuongSD.setValue(2);
 		doDinhDuongSD.setPaintLabels(true);
 		doDinhDuongSD.setMaximum(4);
 		doDinhDuongSD.setMajorTickSpacing(1);
@@ -229,7 +235,7 @@ public class MainFrame {
 		boTieuChiPanel.add(doDinhDuongSD);
 
 		doPhoBienSD = new JSlider();
-		doPhoBienSD.setValue(0);
+		doPhoBienSD.setValue(1);
 		doPhoBienSD.setMajorTickSpacing(1);
 		doPhoBienSD.setPaintLabels(true);
 		doPhoBienSD.setMaximum(4);
@@ -237,7 +243,7 @@ public class MainFrame {
 		boTieuChiPanel.add(doPhoBienSD);
 
 		giaTienSD = new JSlider();
-		giaTienSD.setValue(0);
+		giaTienSD.setValue(3);
 		giaTienSD.setPaintLabels(true);
 		giaTienSD.setMajorTickSpacing(1);
 		giaTienSD.setMaximum(4);
@@ -344,22 +350,27 @@ public class MainFrame {
 		panel.add(lblGiT_1);
 
 		loaimon = new JLabel("ALL");
+		loaimon.setForeground(Color.BLACK);
 		loaimon.setBounds(187, 20, 94, 16);
 		panel.add(loaimon);
 
 		nguongoc = new JLabel("Việt Nam");
+		nguongoc.setForeground(Color.BLACK);
 		nguongoc.setBounds(187, 50, 94, 16);
 		panel.add(nguongoc);
 
 		diung = new JLabel("Tôm");
+		diung.setForeground(Color.BLACK);
 		diung.setBounds(187, 80, 94, 16);
 		panel.add(diung);
 
 		giatu = new JLabel("100K");
+		giatu.setForeground(Color.BLACK);
 		giatu.setBounds(187, 110, 94, 16);
 		panel.add(giatu);
 
 		choden = new JLabel("400K");
+		choden.setForeground(Color.BLACK);
 		choden.setBounds(187, 140, 94, 16);
 		panel.add(choden);
 
@@ -472,6 +483,7 @@ public class MainFrame {
 		panel_1.add(lhgiatien);
 
 		panel_2 = new JPanel();
+		panel_2.setToolTipText("Trọng số = mức ưu tiên  / tổng các mức ưu tiên");
 		panel_2.setBounds(12, 189, 902, 112);
 		panel_2.setBorder(new TitledBorder(null, "Chu\u1EA9n h\u00F3a th\u00F4ng tin ng\u01B0\u1EDDi d\u00F9ng",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -550,26 +562,65 @@ public class MainFrame {
 		tscgiatien.setBounds(757, 82, 94, 16);
 		panel_2.add(tscgiatien);
 
-		dsmal = new MonAnTablePanel();
+		dsmal = new ThuocTinhMonAnTablePanel();
 		dsmal.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
 				"Danh s\u00E1ch m\u00F3n \u0103n l\u1ECDc t\u1EEB Database", TitledBorder.LEADING, TitledBorder.TOP,
 				null, new Color(0, 0, 0)));
-		dsmal.setBounds(12, 303, 902, 160);
+		dsmal.setBounds(12, 303, 902, 143);
 		topsisPanel.add(dsmal);
 
-		chttma = new PhuongAnTablePanel();
+		chttma = new MonAnChuanTablePanel();
 		chttma.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
 				"\u0110\u01B0a thu\u1ED9c t\u00EDnh c\u00E1c m\u00F3n \u0103n v\u1EC1 kho\u1EA3ng 0 - 1",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		chttma.setBounds(12, 469, 902, 160);
+		chttma.setBounds(12, 447, 902, 143);
 		topsisPanel.add(chttma);
 
 		bqd = new PhuongAnTablePanel();
 		bqd.setBorder(
 				new TitledBorder(UIManager.getBorder("TitledBorder.border"), "B\u1EA3ng quy\u1EBFt \u0111\u1ECBnh",
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		bqd.setBounds(12, 632, 902, 218);
+		bqd.setBounds(12, 694, 902, 143);
 		topsisPanel.add(bqd);
+
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder(null, "M\u1ED9t s\u1ED1 th\u00F4ng tin", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBackground(SystemColor.control);
+		panel_3.setBounds(12, 599, 902, 92);
+		topsisPanel.add(panel_3);
+		panel_3.setLayout(null);
+
+		lblHmF = new JLabel("Hàm f: ");
+		lblHmF.setBounds(12, 24, 56, 16);
+		panel_3.add(lblHmF);
+
+		lblBTrngS = new JLabel("Bộ trọng số");
+		lblBTrngS.setBounds(12, 63, 79, 16);
+		panel_3.add(lblBTrngS);
+
+		lblThanhamf = new JLabel("return 1 - Math.abs(giaTriCuaUser - giaTriCuaMonAn)");
+		lblThanhamf.setBounds(103, 24, 309, 16);
+		panel_3.add(lblThanhamf);
+
+		lblBotrongso = new JLabel("botrongso");
+		lblBotrongso.setBounds(103, 63, 244, 16);
+		panel_3.add(lblBotrongso);
+
+		lblA = new JLabel("A*");
+		lblA.setBounds(459, 24, 56, 16);
+		panel_3.add(lblA);
+
+		lblA_1 = new JLabel("A-");
+		lblA_1.setBounds(459, 63, 56, 16);
+		panel_3.add(lblA_1);
+
+		lblAtot = new JLabel("aTot");
+		lblAtot.setBounds(500, 24, 263, 16);
+		panel_3.add(lblAtot);
+
+		lblAxau = new JLabel("aXau");
+		lblAxau.setBounds(500, 63, 263, 16);
+		panel_3.add(lblAxau);
 		frame.getContentPane().setLayout(groupLayout);
 
 	}
@@ -599,11 +650,12 @@ public class MainFrame {
 		List<DiUng> dus = duS.duR.findAll();
 
 		loaiMonCB.setModel(new DefaultComboBoxModel<>(tls.toArray()));
-		loaiMonCB.setSelectedIndex(tls.size() - 1);
+		loaiMonCB.setSelectedIndex(5);
 		nguonGocCB.setModel(new DefaultComboBoxModel<>(qgs.toArray()));
 		nguonGocCB.setSelectedIndex(qgs.size() - 1);
 		diUngCB.setModel(new DefaultComboBoxModel<>(dus.toArray()));
 		giaTuCB.setModel(new DefaultComboBoxModel<Integer>(mucGiaArr));
+		giaTuCB.setSelectedIndex(1);
 		choDenCB.setModel(new DefaultComboBoxModel<Integer>(mucGiaArr));
 		choDenCB.setSelectedIndex(mucGiaArr.length - 1);
 	}
@@ -613,7 +665,7 @@ public class MainFrame {
 		boloc.setDiUng((DiUng) diUngCB.getSelectedItem());
 		boloc.setNguonGoc((QuocGia) nguonGocCB.getSelectedItem());
 		boloc.setTheLoai((TheLoai) loaiMonCB.getSelectedItem());
-		boloc.setGiaLonNhat((int) giaTuCB.getSelectedItem());
+		boloc.setGiaNhoNhat((int) giaTuCB.getSelectedItem());
 		boloc.setGiaLonNhat((int) choDenCB.getSelectedItem());
 		return boloc;
 	}
@@ -655,8 +707,8 @@ public class MainFrame {
 	private JLabel label_17;
 	private JLabel label_18;
 	private JPanel panel_2;
-	private MonAnTablePanel dsmal;
-	private PhuongAnTablePanel chttma;
+	private ThuocTinhMonAnTablePanel dsmal;
+	private MonAnChuanTablePanel chttma;
 	private PhuongAnTablePanel bqd;
 	private JLabel label_34;
 	private JLabel lblNgt_1;
@@ -696,12 +748,21 @@ public class MainFrame {
 	private JLabel lhdodinhduong;
 	private JLabel lhdophobien;
 	private JLabel lhgiatien;
+	private JLabel lblHmF;
+	private JLabel lblBTrngS;
+	private JLabel lblThanhamf;
+	private JLabel lblBotrongso;
+	private JLabel lblA;
+	private JLabel lblA_1;
+	private JLabel lblAtot;
+	private JLabel lblAxau;
 
 	private void injectDataToTopsisPanel() {
 		injectDataBoLoc();
 		injectDataTieuChi();
 		injectDataChuanHoa();
 		injectChuanHoaDuLieuNguoiDung();
+		injectFAndATotAXau();
 		populaDataToTableOnTopsis();
 	}
 
@@ -727,7 +788,6 @@ public class MainFrame {
 		lhdodinhduong.setText("<==>   " + btc.getDoDinhDuong().getValue() + "/2");
 		lhdophobien.setText("<==>   " + btc.getDoPhoBien().getValue() + "/2");
 		lhgiatien.setText("<==>   " + btc.getGiaTien().getValue() + "/2");
-
 	}
 
 	private void injectDataChuanHoa() {
@@ -759,9 +819,23 @@ public class MainFrame {
 
 	}
 
-	private void populaDataToTableOnTopsis() {
-		dsmal.displayData(topsis.getKetQuaLocMonAn());
-		bqd.displayData(topsis.getBangGiaTriV());
+	public void injectFAndATotAXau() {
+		DecimalFormat df = new DecimalFormat("#.###");
+		df.setRoundingMode(RoundingMode.CEILING);
+		lblBotrongso.setText(tscdocay.getText() + "  " + tscdongot.getText() + "  " + tscdodinhduong.getText() + "  "
+				+ tscdophobien.getText() + "  " + tscgiatien.getText());
+		BoTieuChiChuan t = topsis.getPhuongAnLyTuongTot().getBoTieuChiChuan();
+		BoTieuChiChuan x = topsis.getPhuongAnLyTuongXau().getBoTieuChiChuan();
+		lblAtot.setText("(" + df.format(t.getDoCay()) + ", " + df.format(t.getDoNgot()) + ", " + df.format(t.getDoDinhDuong()) + ", " + df.format(t.getDoPhoBien())
+				+ ", " + df.format(t.getGiaTien()) + ")");
+		lblAxau.setText("(" + df.format(x.getDoCay()) + ", " + df.format(x.getDoNgot()) + ", " + df.format(x.getDoDinhDuong()) + ", " + df.format(x.getDoPhoBien())
+				+ ", " + df.format(x.getGiaTien()) + ")");
 	}
 
+	private void populaDataToTableOnTopsis() {
+		dsmal.displayData(topsis.getKetQuaLocMonAn());
+		chttma.displayData(topsis.getMonAnDaChuanHoa());
+		bqd.displayData(topsis.getBangGiaTriV());
+		
+	}
 }
