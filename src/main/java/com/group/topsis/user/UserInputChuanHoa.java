@@ -34,7 +34,8 @@ public class UserInputChuanHoa {
 		int wDoDinhDuong = bts.getWDoDinhDuong();
 		int wDoPhoBien = bts.getWDoPhoBien();
 		int wGiaTien = bts.getWGiaTien();
-		return new BoTrongSoChuan(wDoCay / 4.0, wDoNgot / 4.0, wDoDinhDuong / 4.0, wDoPhoBien / 4.0, wGiaTien / 4.0);
+		double sum = wDoCay + wDoNgot + wDoDinhDuong + wDoPhoBien + wGiaTien;
+		return new BoTrongSoChuan(wDoCay / sum, wDoNgot / sum, wDoDinhDuong / sum, wDoPhoBien / sum, wGiaTien / sum);
 	}
 
 }

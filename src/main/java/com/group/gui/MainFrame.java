@@ -301,6 +301,157 @@ public class MainFrame {
 		});
 		datMonBTN.setBounds(345, 812, 215, 25);
 		datMonPanel.add(datMonBTN);
+		
+		topsisPanel = new JPanel();
+		tabbedPane.addTab("TOPSIS", null, topsisPanel, null);
+		topsisPanel.setLayout(null);
+		
+		panel = new JPanel();
+		panel.setBounds(12, 13, 304, 207);
+		panel.setLayout(null);
+		panel.setBorder(new TitledBorder(null, "B\u1ED9 l\u1ECDc k\u1EBFt qu\u1EA3", TitledBorder.LEFT,
+						TitledBorder.TOP, null, null));
+		topsisPanel.add(panel);
+		
+		label_4 = new JLabel("Loại món");
+		label_4.setBounds(29, 33, 52, 16);
+		panel.add(label_4);
+		
+		label_5 = new JLabel("Nguồn gốc");
+		label_5.setBounds(29, 69, 60, 16);
+		panel.add(label_5);
+		
+		label_6 = new JLabel("Dị ứng");
+		label_6.setBounds(29, 105, 37, 16);
+		panel.add(label_6);
+		
+		label_7 = new JLabel("Giá từ");
+		label_7.setBounds(29, 141, 34, 16);
+		panel.add(label_7);
+		
+		label_8 = new JLabel("Cho đến");
+		label_8.setBounds(29, 177, 47, 16);
+		panel.add(label_8);
+		
+		JLabel label_29 = new JLabel("Mức ưu tiên");
+		label_29.setBounds(143, 33, 94, 16);
+		panel.add(label_29);
+		
+		JLabel label_30 = new JLabel("Mức ưu tiên");
+		label_30.setBounds(143, 69, 94, 16);
+		panel.add(label_30);
+		
+		JLabel label_31 = new JLabel("Mức ưu tiên");
+		label_31.setBounds(143, 105, 94, 16);
+		panel.add(label_31);
+		
+		JLabel label_32 = new JLabel("Mức ưu tiên");
+		label_32.setBounds(143, 141, 94, 16);
+		panel.add(label_32);
+		
+		JLabel label_33 = new JLabel("Mức ưu tiên");
+		label_33.setBounds(143, 177, 94, 16);
+		panel.add(label_33);
+		
+		panel_1 = new JPanel();
+		panel_1.setBounds(328, 13, 586, 207);
+		panel_1.setLayout(null);
+		panel_1.setBorder(new TitledBorder(null, "Ti\u00EAu ch\u00ED \u0111\u00E1nh gi\u00E1",
+						TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		topsisPanel.add(panel_1);
+		
+		label_9 = new JLabel("Độ cay");
+		label_9.setBounds(12, 33, 94, 16);
+		panel_1.add(label_9);
+		
+		label_10 = new JLabel("Độ ngọt");
+		label_10.setBounds(12, 69, 94, 16);
+		panel_1.add(label_10);
+		
+		label_11 = new JLabel("Độ dinh dưỡng");
+		label_11.setBounds(12, 105, 94, 16);
+		panel_1.add(label_11);
+		
+		label_12 = new JLabel("Độ phổ biến");
+		label_12.setBounds(12, 141, 94, 16);
+		panel_1.add(label_12);
+		
+		label_13 = new JLabel("Giá tiền");
+		label_13.setBounds(12, 177, 94, 16);
+		panel_1.add(label_13);
+		
+		label_14 = new JLabel("Mức ưu tiên");
+		label_14.setBounds(267, 33, 94, 16);
+		panel_1.add(label_14);
+		
+		label_15 = new JLabel("Mức ưu tiên");
+		label_15.setBounds(267, 69, 94, 16);
+		panel_1.add(label_15);
+		
+		label_16 = new JLabel("Mức ưu tiên");
+		label_16.setBounds(267, 105, 94, 16);
+		panel_1.add(label_16);
+		
+		label_17 = new JLabel("Mức ưu tiên");
+		label_17.setBounds(267, 141, 94, 16);
+		panel_1.add(label_17);
+		
+		label_18 = new JLabel("Mức ưu tiên");
+		label_18.setBounds(267, 177, 94, 16);
+		panel_1.add(label_18);
+		
+		JLabel label_19 = new JLabel("Mức ưu tiên");
+		label_19.setBounds(414, 33, 94, 16);
+		panel_1.add(label_19);
+		
+		JLabel label_20 = new JLabel("Mức ưu tiên");
+		label_20.setBounds(414, 69, 94, 16);
+		panel_1.add(label_20);
+		
+		JLabel label_21 = new JLabel("Mức ưu tiên");
+		label_21.setBounds(414, 105, 94, 16);
+		panel_1.add(label_21);
+		
+		JLabel label_22 = new JLabel("Mức ưu tiên");
+		label_22.setBounds(414, 141, 94, 16);
+		panel_1.add(label_22);
+		
+		JLabel label_23 = new JLabel("Mức ưu tiên");
+		label_23.setBounds(414, 177, 94, 16);
+		panel_1.add(label_23);
+		
+		JLabel label_24 = new JLabel("Mức ưu tiên");
+		label_24.setBounds(118, 33, 94, 16);
+		panel_1.add(label_24);
+		
+		JLabel label_25 = new JLabel("Mức ưu tiên");
+		label_25.setBounds(118, 69, 94, 16);
+		panel_1.add(label_25);
+		
+		JLabel label_26 = new JLabel("Mức ưu tiên");
+		label_26.setBounds(118, 105, 94, 16);
+		panel_1.add(label_26);
+		
+		JLabel label_27 = new JLabel("Mức ưu tiên");
+		label_27.setBounds(118, 141, 94, 16);
+		panel_1.add(label_27);
+		
+		JLabel label_28 = new JLabel("Mức ưu tiên");
+		label_28.setBounds(118, 177, 94, 16);
+		panel_1.add(label_28);
+		
+		panel_2 = new JPanel();
+		panel_2.setBounds(12, 233, 913, 101);
+		panel_2.setBorder(new TitledBorder(null, "Chu\u1EA9n h\u00F3a th\u00F4ng tin ng\u01B0\u1EDDi d\u00F9ng", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		topsisPanel.add(panel_2);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(12, 357, 913, 207);
+		topsisPanel.add(panel_3);
+		
+		panel_4 = new JPanel();
+		panel_4.setBounds(12, 601, 913, 207);
+		topsisPanel.add(panel_4);
 		frame.getContentPane().setLayout(groupLayout);
 
 	}
@@ -366,5 +517,24 @@ public class MainFrame {
 
 	@Autowired
 	private TOPSIS topsis;
-
+	private JPanel topsisPanel;
+	private JPanel panel;
+	private JLabel label_4;
+	private JLabel label_5;
+	private JLabel label_6;
+	private JLabel label_7;
+	private JLabel label_8;
+	private JPanel panel_1;
+	private JLabel label_9;
+	private JLabel label_10;
+	private JLabel label_11;
+	private JLabel label_12;
+	private JLabel label_13;
+	private JLabel label_14;
+	private JLabel label_15;
+	private JLabel label_16;
+	private JLabel label_17;
+	private JLabel label_18;
+	private JPanel panel_2;
+	private JPanel panel_4;
 }
