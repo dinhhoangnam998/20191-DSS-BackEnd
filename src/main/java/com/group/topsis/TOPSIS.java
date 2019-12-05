@@ -19,6 +19,7 @@ import com.group.topsis.user.BoTrongSo;
 import com.group.topsis.user.BoTrongSoChuan;
 import com.group.topsis.user.UserInputChuanHoa;
 import com.group.topsis.user.UserInputData;
+import com.group.utils.Printer;
 
 import lombok.Getter;
 
@@ -60,7 +61,7 @@ public class TOPSIS {
 
 	private List<PhuongAn> tinhBangGiaTriR() {
 		BoTieuChiChuan btccOfUser = userInputChuanHoa.getBoTieuChiChuan();
-		List<PhuongAn> bangDoDoPhuHop = new ArrayList<>();
+		List<PhuongAn> bangGiaTriR = new ArrayList<>();
 		for (MonAnChuan mac : monAnDaChuanHoa) {
 			BoTieuChiChuan btccOfMonAn = mac.getBoTieuChiChuan();
 			double doPhuHopCay = f(btccOfMonAn.getDoCay(), btccOfUser.getDoCay());
@@ -72,9 +73,9 @@ public class TOPSIS {
 			BoTieuChiChuan boDoDoPhuHop = new BoTieuChiChuan(doPhuHopCay, doPhuHopNgot, doPhuHopDinhDuong,
 					doPhuHopPhoBien, doPhuHopGiaTien);
 			PhuongAn phuongAn = new PhuongAn(mac.getId(), mac.getTen(), boDoDoPhuHop);
-			bangDoDoPhuHop.add(phuongAn);
+			bangGiaTriR.add(phuongAn);
 		}
-		return bangDoDoPhuHop;
+		return bangGiaTriR;
 	}
 
 	private double f(double giaTriCuaUser, double giaTriCuaMonAn) {
@@ -82,7 +83,7 @@ public class TOPSIS {
 	}
 
 	private List<PhuongAn> tinhBangGiaTriV() {
-		List<PhuongAn> bangQuyetDinh = new ArrayList<>();
+		List<PhuongAn> bangGiaTriV = new ArrayList<>();
 		BoTrongSoChuan boTrongSoChuan = userInputChuanHoa.getBoTrongSoChuan();
 		for (PhuongAn phuongAn : bangGiaTriR) {
 			BoTieuChiChuan boDoDoPhuHop = phuongAn.getBoTieuChiChuan();
@@ -94,9 +95,9 @@ public class TOPSIS {
 
 			BoTieuChiChuan boGiaTriV = new BoTieuChiChuan(doCayV, doNgotV, doDinhDuongV, doPhoBienV, giaTienV);
 			PhuongAn phuongAnQD = new PhuongAn(phuongAn.getId(), phuongAn.getTen(), boGiaTriV);
-			bangQuyetDinh.add(phuongAnQD);
+			bangGiaTriV.add(phuongAnQD);
 		}
-		return bangQuyetDinh;
+		return bangGiaTriV;
 	}
 
 	public void tinhPhuongAnLyTuongTotVaXau() {

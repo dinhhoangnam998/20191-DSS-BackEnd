@@ -1,7 +1,6 @@
 package com.group.topsis.monan;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import com.group.model.MonAn;
@@ -24,11 +23,13 @@ public class ChuanHoaMonAn {
 	}
 
 	public void findMaxValue(List<MonAn> monAns) {
-		doCayLonNhat = monAns.stream().max(Comparator.comparingDouble(MonAn::getDoCay)).get().getDoCay();
-		doNgotLonNhat = monAns.stream().max(Comparator.comparingDouble(MonAn::getDoCay)).get().getDoNgot();
-		doDinhDuongLonNhat = monAns.stream().max(Comparator.comparingDouble(MonAn::getDoCay)).get().getDoDinhDuong();
-		doPhoBienLonNhat = monAns.stream().max(Comparator.comparingDouble(MonAn::getDoCay)).get().getDoPhoBien();
-		giaLonNhat = monAns.stream().max(Comparator.comparingDouble(MonAn::getDoCay)).get().getGia();
+		for (MonAn ma : monAns) {
+			doCayLonNhat = ma.getDoCay() > doCayLonNhat ? ma.getDoCay() : doCayLonNhat;
+			doNgotLonNhat = ma.getDoNgot() > doNgotLonNhat ? ma.getDoNgot() : doNgotLonNhat;
+			doDinhDuongLonNhat = ma.getDoDinhDuong() > doDinhDuongLonNhat ? ma.getDoDinhDuong() : doDinhDuongLonNhat;
+			doPhoBienLonNhat = ma.getDoPhoBien() > doPhoBienLonNhat ? ma.getDoPhoBien() : doPhoBienLonNhat;
+			giaLonNhat = ma.getGia() > giaLonNhat ? ma.getGia() : giaLonNhat;
+		}
 	}
 
 	public void chuanHoaMonAn(List<MonAn> monAns) {

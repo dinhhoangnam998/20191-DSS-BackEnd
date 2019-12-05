@@ -32,6 +32,7 @@ import com.group.enums.DoNgot;
 import com.group.enums.DoPhoBien;
 import com.group.enums.GiaTien;
 import com.group.gui.table.MonAnTablePanel;
+import com.group.gui.table.PhuongAnTablePanel;
 import com.group.model.DiUng;
 import com.group.model.MonAn;
 import com.group.model.QuocGia;
@@ -342,23 +343,23 @@ public class MainFrame {
 		lblGiT_1.setBounds(46, 110, 47, 16);
 		panel.add(lblGiT_1);
 
-		loaimon = new JLabel("Mức ưu tiên");
+		loaimon = new JLabel("ALL");
 		loaimon.setBounds(187, 20, 94, 16);
 		panel.add(loaimon);
 
-		nguongoc = new JLabel("Mức ưu tiên");
+		nguongoc = new JLabel("Việt Nam");
 		nguongoc.setBounds(187, 50, 94, 16);
 		panel.add(nguongoc);
 
-		diung = new JLabel("Mức ưu tiên");
+		diung = new JLabel("Tôm");
 		diung.setBounds(187, 80, 94, 16);
 		panel.add(diung);
 
-		giatu = new JLabel("Mức ưu tiên");
+		giatu = new JLabel("100K");
 		giatu.setBounds(187, 110, 94, 16);
 		panel.add(giatu);
 
-		choden = new JLabel("Mức ưu tiên");
+		choden = new JLabel("400K");
 		choden.setBounds(187, 140, 94, 16);
 		panel.add(choden);
 
@@ -391,64 +392,84 @@ public class MainFrame {
 		panel_1.add(label_13);
 
 		label_14 = new JLabel("Mức ưu tiên");
-		label_14.setBounds(299, 20, 94, 16);
+		label_14.setBounds(358, 20, 94, 16);
 		panel_1.add(label_14);
 
 		label_15 = new JLabel("Mức ưu tiên");
-		label_15.setBounds(299, 50, 94, 16);
+		label_15.setBounds(358, 50, 94, 16);
 		panel_1.add(label_15);
 
 		label_16 = new JLabel("Mức ưu tiên");
-		label_16.setBounds(299, 80, 94, 16);
+		label_16.setBounds(358, 80, 94, 16);
 		panel_1.add(label_16);
 
 		label_17 = new JLabel("Mức ưu tiên");
-		label_17.setBounds(299, 110, 94, 16);
+		label_17.setBounds(358, 110, 94, 16);
 		panel_1.add(label_17);
 
 		label_18 = new JLabel("Mức ưu tiên");
-		label_18.setBounds(299, 140, 94, 16);
+		label_18.setBounds(358, 140, 94, 16);
 		panel_1.add(label_18);
 
-		tsdocay = new JLabel("Mức ưu tiên");
-		tsdocay.setBounds(441, 20, 94, 16);
+		tsdocay = new JLabel("1/4");
+		tsdocay.setBounds(464, 20, 94, 16);
 		panel_1.add(tsdocay);
 
-		tsdongot = new JLabel("Mức ưu tiên");
-		tsdongot.setBounds(441, 50, 94, 16);
+		tsdongot = new JLabel("2/4");
+		tsdongot.setBounds(464, 50, 94, 16);
 		panel_1.add(tsdongot);
 
-		tsdodinhduong = new JLabel("Mức ưu tiên");
-		tsdodinhduong.setBounds(441, 80, 94, 16);
+		tsdodinhduong = new JLabel("1/4");
+		tsdodinhduong.setBounds(464, 80, 94, 16);
 		panel_1.add(tsdodinhduong);
 
-		tsdophobien = new JLabel("Mức ưu tiên");
-		tsdophobien.setBounds(441, 110, 94, 16);
+		tsdophobien = new JLabel("3/4");
+		tsdophobien.setBounds(464, 110, 94, 16);
 		panel_1.add(tsdophobien);
 
-		tsgiatien = new JLabel("Mức ưu tiên");
-		tsgiatien.setBounds(441, 140, 94, 16);
+		tsgiatien = new JLabel("2/4");
+		tsgiatien.setBounds(464, 140, 94, 16);
 		panel_1.add(tsgiatien);
 
-		docay = new JLabel("Mức ưu tiên");
-		docay.setBounds(157, 20, 94, 16);
+		docay = new JLabel("Rất Cay");
+		docay.setBounds(118, 20, 80, 16);
 		panel_1.add(docay);
 
-		dongot = new JLabel("Mức ưu tiên");
-		dongot.setBounds(157, 50, 94, 16);
+		dongot = new JLabel("Khá Ngọt");
+		dongot.setBounds(118, 50, 80, 16);
 		panel_1.add(dongot);
 
-		dodinhduong = new JLabel("Mức ưu tiên");
-		dodinhduong.setBounds(157, 80, 94, 16);
+		dodinhduong = new JLabel("Cao");
+		dodinhduong.setBounds(118, 80, 80, 16);
 		panel_1.add(dodinhduong);
 
-		dophobien = new JLabel("Mức ưu tiên");
-		dophobien.setBounds(157, 110, 94, 16);
+		dophobien = new JLabel("Rất phổ biến");
+		dophobien.setBounds(118, 110, 80, 16);
 		panel_1.add(dophobien);
 
-		giatien = new JLabel("Mức ưu tiên");
-		giatien.setBounds(157, 140, 94, 16);
+		giatien = new JLabel("Trung bình");
+		giatien.setBounds(118, 140, 80, 16);
 		panel_1.add(giatien);
+
+		lhdocay = new JLabel("-> 4/4");
+		lhdocay.setBounds(210, 20, 94, 16);
+		panel_1.add(lhdocay);
+
+		lhdongot = new JLabel("-> 3/4");
+		lhdongot.setBounds(210, 50, 94, 16);
+		panel_1.add(lhdongot);
+
+		lhdodinhduong = new JLabel("-> 2/2");
+		lhdodinhduong.setBounds(210, 80, 94, 16);
+		panel_1.add(lhdodinhduong);
+
+		lhdophobien = new JLabel("-> 2/2");
+		lhdophobien.setBounds(210, 110, 94, 16);
+		panel_1.add(lhdophobien);
+
+		lhgiatien = new JLabel("-> 1/2");
+		lhgiatien.setBounds(210, 140, 94, 16);
+		panel_1.add(lhgiatien);
 
 		panel_2 = new JPanel();
 		panel_2.setBounds(12, 189, 902, 112);
@@ -529,26 +550,26 @@ public class MainFrame {
 		tscgiatien.setBounds(757, 82, 94, 16);
 		panel_2.add(tscgiatien);
 
-		panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+		dsmal = new MonAnTablePanel();
+		dsmal.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
 				"Danh s\u00E1ch m\u00F3n \u0103n l\u1ECDc t\u1EEB Database", TitledBorder.LEADING, TitledBorder.TOP,
 				null, new Color(0, 0, 0)));
-		panel_3.setBounds(12, 303, 902, 132);
-		topsisPanel.add(panel_3);
+		dsmal.setBounds(12, 303, 902, 160);
+		topsisPanel.add(dsmal);
 
-		panel_4 = new JPanel();
-		panel_4.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+		chttma = new PhuongAnTablePanel();
+		chttma.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
 				"\u0110\u01B0a thu\u1ED9c t\u00EDnh c\u00E1c m\u00F3n \u0103n v\u1EC1 kho\u1EA3ng 0 - 1",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_4.setBounds(12, 443, 902, 152);
-		topsisPanel.add(panel_4);
+		chttma.setBounds(12, 469, 902, 160);
+		topsisPanel.add(chttma);
 
-		panel_5 = new JPanel();
-		panel_5.setBorder(
+		bqd = new PhuongAnTablePanel();
+		bqd.setBorder(
 				new TitledBorder(UIManager.getBorder("TitledBorder.border"), "B\u1EA3ng quy\u1EBFt \u0111\u1ECBnh",
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_5.setBounds(12, 598, 902, 252);
-		topsisPanel.add(panel_5);
+		bqd.setBounds(12, 632, 902, 218);
+		topsisPanel.add(bqd);
 		frame.getContentPane().setLayout(groupLayout);
 
 	}
@@ -634,9 +655,9 @@ public class MainFrame {
 	private JLabel label_17;
 	private JLabel label_18;
 	private JPanel panel_2;
-	private JPanel panel_3;
-	private JPanel panel_4;
-	private JPanel panel_5;
+	private MonAnTablePanel dsmal;
+	private PhuongAnTablePanel chttma;
+	private PhuongAnTablePanel bqd;
 	private JLabel label_34;
 	private JLabel lblNgt_1;
 	private JLabel lblDinhDng_1;
@@ -670,12 +691,18 @@ public class MainFrame {
 	private JLabel tsdodinhduong;
 	private JLabel tsdophobien;
 	private JLabel tsgiatien;
+	private JLabel lhdocay;
+	private JLabel lhdongot;
+	private JLabel lhdodinhduong;
+	private JLabel lhdophobien;
+	private JLabel lhgiatien;
 
 	private void injectDataToTopsisPanel() {
 		injectDataBoLoc();
 		injectDataTieuChi();
 		injectDataChuanHoa();
 		injectChuanHoaDuLieuNguoiDung();
+		populaDataToTableOnTopsis();
 	}
 
 	private void injectDataBoLoc() {
@@ -694,15 +721,22 @@ public class MainFrame {
 		dodinhduong.setText(btc.getDoDinhDuong().getText());
 		dophobien.setText(btc.getDoPhoBien().getText());
 		giatien.setText(btc.getGiaTien().getText());
+
+		lhdocay.setText("<==>   " + btc.getDoCay().getValue() + "/4");
+		lhdongot.setText("<==>   " + btc.getDoNgot().getValue() + "/4");
+		lhdodinhduong.setText("<==>   " + btc.getDoDinhDuong().getValue() + "/2");
+		lhdophobien.setText("<==>   " + btc.getDoPhoBien().getValue() + "/2");
+		lhgiatien.setText("<==>   " + btc.getGiaTien().getValue() + "/2");
+
 	}
 
 	private void injectDataChuanHoa() {
 		BoTrongSo bts = topsis.getUserInputData().getBoTrongSo();
-		tsdocay.setText(Integer.valueOf(bts.getWDoCay()).toString());
-		tsdongot.setText(Integer.valueOf(bts.getWDoNgot()).toString());
-		tsdodinhduong.setText(Integer.valueOf(bts.getWDoDinhDuong()).toString());
-		tsdophobien.setText(Integer.valueOf(bts.getWDoPhoBien()).toString());
-		tsgiatien.setText(Integer.valueOf(bts.getWGiaTien()).toString());
+		tsdocay.setText(Integer.valueOf(bts.getWDoCay()).toString() + "/4");
+		tsdongot.setText(Integer.valueOf(bts.getWDoNgot()).toString() + "/4");
+		tsdodinhduong.setText(Integer.valueOf(bts.getWDoDinhDuong()).toString() + "/4");
+		tsdophobien.setText(Integer.valueOf(bts.getWDoPhoBien()).toString() + "/4");
+		tsgiatien.setText(Integer.valueOf(bts.getWGiaTien()).toString() + "/4");
 	}
 
 	private void injectChuanHoaDuLieuNguoiDung() {
@@ -723,6 +757,11 @@ public class MainFrame {
 		tscdophobien.setText(df.format(btsc.getWDoPhoBien()).toString());
 		tscgiatien.setText(df.format(btsc.getWGiaTien()).toString());
 
+	}
+
+	private void populaDataToTableOnTopsis() {
+		dsmal.displayData(topsis.getKetQuaLocMonAn());
+		bqd.displayData(topsis.getBangGiaTriV());
 	}
 
 }

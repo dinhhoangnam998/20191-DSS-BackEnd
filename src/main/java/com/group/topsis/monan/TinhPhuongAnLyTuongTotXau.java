@@ -1,13 +1,11 @@
 package com.group.topsis.monan;
 
-import java.util.Comparator;
 import java.util.List;
 
 import com.group.topsis.BoTieuChiChuan;
 import com.group.topsis.PhuongAn;
 
 public class TinhPhuongAnLyTuongTotXau {
-	private List<PhuongAn> bangQuyetDinh;
 
 	private double doCayLonNhat;
 	private double doCayNhoNhat;
@@ -25,35 +23,27 @@ public class TinhPhuongAnLyTuongTotXau {
 	private double giaNhoNhat;
 
 	public TinhPhuongAnLyTuongTotXau(List<PhuongAn> bangQuyetDinh) {
-		this.bangQuyetDinh = bangQuyetDinh;
-		setupMaxMin();
+		setupMaxMin(bangQuyetDinh);
 	}
 
-	public void setupMaxMin() {
-		doCayLonNhat = bangQuyetDinh.stream().max(Comparator.comparingDouble(i -> i.getBoTieuChiChuan().getDoCay()))
-				.get().getBoTieuChiChuan().getDoCay();
-		doCayNhoNhat = bangQuyetDinh.stream().min(Comparator.comparingDouble(i -> i.getBoTieuChiChuan().getDoCay()))
-				.get().getBoTieuChiChuan().getDoCay();
-		doNgotLonNhat = bangQuyetDinh.stream().max(Comparator.comparingDouble(i -> i.getBoTieuChiChuan().getDoNgot()))
-				.get().getBoTieuChiChuan().getDoNgot();
-		doNgotNhoNhat = bangQuyetDinh.stream().min(Comparator.comparingDouble(i -> i.getBoTieuChiChuan().getDoNgot()))
-				.get().getBoTieuChiChuan().getDoNgot();
-		doDinhDuongLonNhat = bangQuyetDinh.stream()
-				.max(Comparator.comparingDouble(i -> i.getBoTieuChiChuan().getDoDinhDuong())).get().getBoTieuChiChuan()
-				.getDoDinhDuong();
-		doDinhDuongNhoNhat = bangQuyetDinh.stream()
-				.min(Comparator.comparingDouble(i -> i.getBoTieuChiChuan().getDoDinhDuong())).get().getBoTieuChiChuan()
-				.getDoDinhDuong();
-		doPhoBienLonNhat = bangQuyetDinh.stream()
-				.max(Comparator.comparingDouble(i -> i.getBoTieuChiChuan().getDoPhoBien())).get().getBoTieuChiChuan()
-				.getDoPhoBien();
-		doPhoBienNhoNhat = bangQuyetDinh.stream()
-				.min(Comparator.comparingDouble(i -> i.getBoTieuChiChuan().getDoPhoBien())).get().getBoTieuChiChuan()
-				.getDoPhoBien();
-		giaLonNhat = bangQuyetDinh.stream().max(Comparator.comparingDouble(i -> i.getBoTieuChiChuan().getGiaTien()))
-				.get().getBoTieuChiChuan().getGiaTien();
-		giaNhoNhat = bangQuyetDinh.stream().min(Comparator.comparingDouble(i -> i.getBoTieuChiChuan().getGiaTien()))
-				.get().getBoTieuChiChuan().getGiaTien();
+	public void setupMaxMin(List<PhuongAn> pas) {
+		for (PhuongAn pa : pas) {
+			BoTieuChiChuan b = pa.getBoTieuChiChuan();
+			doCayLonNhat = b.getDoCay() > doCayLonNhat ? b.getDoCay() : doCayLonNhat;
+			doCayNhoNhat = b.getDoCay() < doCayNhoNhat ? b.getDoCay() : doCayNhoNhat;
+
+			doNgotLonNhat = b.getDoNgot() > doNgotLonNhat ? b.getDoNgot() : doNgotLonNhat;
+			doNgotNhoNhat = b.getDoNgot() < doNgotNhoNhat ? b.getDoNgot() : doNgotNhoNhat;
+
+			doDinhDuongLonNhat = b.getDoDinhDuong() > doDinhDuongLonNhat ? b.getDoDinhDuong() : doDinhDuongLonNhat;
+			doDinhDuongNhoNhat = b.getDoDinhDuong() < doDinhDuongNhoNhat ? b.getDoDinhDuong() : doDinhDuongNhoNhat;
+
+			doPhoBienLonNhat = b.getDoPhoBien() > doPhoBienLonNhat ? b.getDoPhoBien() : doPhoBienLonNhat;
+			doPhoBienNhoNhat = b.getDoPhoBien() < doPhoBienNhoNhat ? b.getDoPhoBien() : doPhoBienNhoNhat;
+
+			giaLonNhat = b.getGiaTien() > giaLonNhat ? b.getGiaTien() : giaLonNhat;
+			giaNhoNhat = b.getGiaTien() < giaNhoNhat ? b.getGiaTien() : giaNhoNhat;
+		}
 	}
 
 	public PhuongAn getPhuongAnLyTuongTot() {
