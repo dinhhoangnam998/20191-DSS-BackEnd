@@ -22,9 +22,4 @@ public class BoTieuChi {
 	private DoDinhDuong doDinhDuong;
 	private DoPhoBien doPhoBien;
 	private GiaTien giaTien;
-
-	public BoTieuChiChuan getBoTieuChiChuanForUser() {
-		return new BoTieuChiChuan(doCay.getValue() / 4.0, doNgot.getValue() / 4.0, doDinhDuong.getValue() / 2.0,
-				doPhoBien.getValue() / 2.0, giaTien.getValue() / 2.0);
-	}
 }

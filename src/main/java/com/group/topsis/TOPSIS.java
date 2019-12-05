@@ -1,7 +1,9 @@
 package com.group.topsis;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +12,7 @@ import com.group.model.MonAn;
 import com.group.service.MonAnS;
 import com.group.topsis.monan.ChuanHoaMonAn;
 import com.group.topsis.monan.MonAnChuan;
-import com.group.topsis.monan.TinhMaxMin;
+import com.group.topsis.monan.TinhPhuongAnLyTuongTotXau;
 import com.group.topsis.user.BoLoc;
 import com.group.topsis.user.BoTieuChi;
 import com.group.topsis.user.BoTrongSo;
@@ -26,19 +28,20 @@ public class TOPSIS {
 	private UserInputData userInputData;
 	private UserInputChuanHoa userInputChuanHoa;
 
-	private List<MonAn> ketQuaTimKiemMonAn;
+	private List<MonAn> ketQuaLocMonAn;
 	private List<MonAnChuan> monAnDaChuanHoa;
 
-	private List<MonAnChuan> bangDoDoPhuHop;
-	private List<MonAnChuan> bangQuyetDinh;
+	private List<PhuongAn> bangGiaTriR;
+	private List<PhuongAn> bangGiaTriV;
 
-	private MonAnChuan phuongAnLyTuongTot;
-	private MonAnChuan phuongAnLyTuongXau;
+	private PhuongAn phuongAnLyTuongTot;
+	private PhuongAn phuongAnLyTuongXau;
 
-	private List<Double> khoangCachToiPhuongAnLyTuongTot;
-	private List<Double> khoangCachToiPhuongAnLyTuongXau;
+	private List<PhuongAn> khoangCachToiPhuongAnLyTuongTot;
+	private List<PhuongAn> khoangCachToiPhuongAnLyTuongXau;
 
-	private List<Double> doDoTuongTu;
+	private List<PhuongAn> doDoTuongTu;
+	private List<MonAn> ketQuaCuoiCung;
 
 	@Autowired
 	private MonAnS maS;
@@ -46,29 +49,30 @@ public class TOPSIS {
 	public void setup(BoLoc boLoc, BoTieuChi boTieuChi, BoTrongSo boTrongSo) {
 		userInputData = new UserInputData(boLoc, boTieuChi, boTrongSo);
 		userInputChuanHoa = new UserInputChuanHoa(userInputData);
-		ketQuaTimKiemMonAn = maS.timKiemKetQua(boLoc);
-		monAnDaChuanHoa = new ChuanHoaMonAn(ketQuaTimKiemMonAn).getMonAnChuan();
-		bangDoDoPhuHop = tinhBangDoDoPhuHop();
-		bangQuyetDinh = tinhBangQuyetDinh();
+		ketQuaLocMonAn = maS.locMonAn(boLoc);
+		monAnDaChuanHoa = new ChuanHoaMonAn(ketQuaLocMonAn).getMonAnsDaChuanHoa();
+		bangGiaTriR = tinhBangGiaTriR();
+		bangGiaTriV = tinhBangGiaTriV();
 		tinhPhuongAnLyTuongTotVaXau();
-		tinhKhoangCach();
-		tinhDoDoTuongTu();
+		tinhToanSAndC();
+		tinhKetQuaCuoiCung();
 	}
 
-	private List<MonAnChuan> tinhBangDoDoPhuHop() {
-		List<MonAnChuan> bangDoDoPhuHop = new ArrayList<MonAnChuan>();
+	private List<PhuongAn> tinhBangGiaTriR() {
+		BoTieuChiChuan btccOfUser = userInputChuanHoa.getBoTieuChiChuan();
+		List<PhuongAn> bangDoDoPhuHop = new ArrayList<>();
 		for (MonAnChuan mac : monAnDaChuanHoa) {
-			BoTieuChiChuan boTieuChiChuanOfMonAn = mac.getBoTieuChiChuan();
-			BoTieuChiChuan boTieuChiChuanOfUser = userInputChuanHoa.getBoTieuChiChuan();
-			double doCay = f(boTieuChiChuanOfUser.getDoCay(), boTieuChiChuanOfMonAn.getDoCay());
-			double doNgot = f(boTieuChiChuanOfUser.getDoNgot(), boTieuChiChuanOfMonAn.getDoNgot());
-			double doDinhDuong = f(boTieuChiChuanOfUser.getDoDinhDuong(), boTieuChiChuanOfMonAn.getDoDinhDuong());
-			double doPhoBien = f(boTieuChiChuanOfUser.getDoPhoBien(), boTieuChiChuanOfMonAn.getDoPhoBien());
-			double giaTien = f(boTieuChiChuanOfUser.getGiaTien(), boTieuChiChuanOfUser.getGiaTien());
+			BoTieuChiChuan btccOfMonAn = mac.getBoTieuChiChuan();
+			double doPhuHopCay = f(btccOfMonAn.getDoCay(), btccOfUser.getDoCay());
+			double doPhuHopNgot = f(btccOfMonAn.getDoNgot(), btccOfUser.getDoNgot());
+			double doPhuHopDinhDuong = f(btccOfMonAn.getDoDinhDuong(), btccOfUser.getDoDinhDuong());
+			double doPhuHopPhoBien = f(btccOfMonAn.getDoPhoBien(), btccOfUser.getDoPhoBien());
+			double doPhuHopGiaTien = f(btccOfMonAn.getGiaTien(), btccOfMonAn.getGiaTien());
 
-			BoTieuChiChuan doPhuHop = new BoTieuChiChuan(doCay, doNgot, doDinhDuong, doPhoBien, giaTien);
-			MonAnChuan doPhuHopCuaMonAn = new MonAnChuan(mac.getId(), mac.getTen(), doPhuHop);
-			bangDoDoPhuHop.add(doPhuHopCuaMonAn);
+			BoTieuChiChuan boDoDoPhuHop = new BoTieuChiChuan(doPhuHopCay, doPhuHopNgot, doPhuHopDinhDuong,
+					doPhuHopPhoBien, doPhuHopGiaTien);
+			PhuongAn phuongAn = new PhuongAn(mac.getId(), mac.getTen(), boDoDoPhuHop);
+			bangDoDoPhuHop.add(phuongAn);
 		}
 		return bangDoDoPhuHop;
 	}
@@ -77,36 +81,57 @@ public class TOPSIS {
 		return 1 - Math.abs(giaTriCuaUser - giaTriCuaMonAn);
 	}
 
-	private List<MonAnChuan> tinhBangQuyetDinh() {
-		List<MonAnChuan> bangQuyetDinh = new ArrayList<MonAnChuan>();
-		for (MonAnChuan phuongAn : bangQuyetDinh) {
-			BoTieuChiChuan boGiaTriR = phuongAn.getBoTieuChiChuan();
-			BoTrongSoChuan boTrongSoChuan = userInputChuanHoa.getBoTrongSoChuan();
-			double doCay = boGiaTriR.getDoCay() * boTrongSoChuan.getWDoCay();
-			double doNgot = boGiaTriR.getDoNgot() * boTrongSoChuan.getWDoNgot();
-			double doDinhDuong = boGiaTriR.getDoDinhDuong() * boTrongSoChuan.getWDoDinhDuong();
-			double doPhoBien = boGiaTriR.getDoPhoBien() * boTrongSoChuan.getWDoPhoBien();
-			double giaTien = boGiaTriR.getGiaTien() * boTrongSoChuan.getWGiaTien();
+	private List<PhuongAn> tinhBangGiaTriV() {
+		List<PhuongAn> bangQuyetDinh = new ArrayList<>();
+		BoTrongSoChuan boTrongSoChuan = userInputChuanHoa.getBoTrongSoChuan();
+		for (PhuongAn phuongAn : bangGiaTriR) {
+			BoTieuChiChuan boDoDoPhuHop = phuongAn.getBoTieuChiChuan();
+			double doCayV = boDoDoPhuHop.getDoCay() * boTrongSoChuan.getWDoCay();
+			double doNgotV = boDoDoPhuHop.getDoNgot() * boTrongSoChuan.getWDoNgot();
+			double doDinhDuongV = boDoDoPhuHop.getDoDinhDuong() * boTrongSoChuan.getWDoDinhDuong();
+			double doPhoBienV = boDoDoPhuHop.getDoPhoBien() * boTrongSoChuan.getWDoPhoBien();
+			double giaTienV = boDoDoPhuHop.getGiaTien() * boTrongSoChuan.getWGiaTien();
 
-			BoTieuChiChuan boGiaTri = new BoTieuChiChuan(doCay, doNgot, doDinhDuong, doPhoBien, giaTien);
-			MonAnChuan boGiaTriV = new MonAnChuan(phuongAn.getId(), phuongAn.getTen(), boGiaTri);
-			bangQuyetDinh.add(boGiaTriV);
+			BoTieuChiChuan boGiaTriV = new BoTieuChiChuan(doCayV, doNgotV, doDinhDuongV, doPhoBienV, giaTienV);
+			PhuongAn phuongAnQD = new PhuongAn(phuongAn.getId(), phuongAn.getTen(), boGiaTriV);
+			bangQuyetDinh.add(phuongAnQD);
 		}
 		return bangQuyetDinh;
 	}
 
 	public void tinhPhuongAnLyTuongTotVaXau() {
-		TinhMaxMin tinhMaxMin = new TinhMaxMin(bangQuyetDinh);
+		TinhPhuongAnLyTuongTotXau tinhMaxMin = new TinhPhuongAnLyTuongTotXau(bangGiaTriV);
 		phuongAnLyTuongTot = tinhMaxMin.getPhuongAnLyTuongTot();
 		phuongAnLyTuongXau = tinhMaxMin.getPhuongAnLyTuongXau();
 	}
 
-	public void tinhKhoangCach() {
-
+	public void tinhToanSAndC() {
+		for (PhuongAn pa : bangGiaTriV) {
+			pa.setSTot(tinhKhoangCach(pa, phuongAnLyTuongTot));
+			pa.setSXau(tinhKhoangCach(pa, phuongAnLyTuongXau));
+			pa.setC(tinhC(pa));
+		}
 	}
 
-	public void tinhDoDoTuongTu() {
-
+	public double tinhKhoangCach(PhuongAn pa, PhuongAn pa2) {
+		BoTieuChiChuan btccPa2 = pa2.getBoTieuChiChuan();
+		BoTieuChiChuan btccPa = pa.getBoTieuChiChuan();
+		double v1 = btccPa.getDoCay() - btccPa2.getDoCay();
+		double v2 = btccPa.getDoNgot() - btccPa2.getDoNgot();
+		double v3 = btccPa.getDoDinhDuong() - btccPa2.getDoDinhDuong();
+		double v4 = btccPa.getGiaTien() - btccPa2.getGiaTien();
+		double S = Math.sqrt(v1 * v1 + v2 * v2 + v3 * v3 + v4 * v4);
+		return S;
 	}
 
+	public double tinhC(PhuongAn pa) {
+		return pa.getSXau() / (pa.getSTot() + pa.getSXau());
+	}
+
+	public void tinhKetQuaCuoiCung() {
+		List<PhuongAn> copyBangGiaTriV = bangGiaTriV.stream().collect(Collectors.toList());
+		ketQuaCuoiCung = copyBangGiaTriV.stream().sorted(Comparator.comparing(PhuongAn::getC))
+				.map(i -> maS.maR.getOne(i.getId())).collect(Collectors.toList());
+
+	}
 }

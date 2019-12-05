@@ -2,13 +2,11 @@ package com.group.topsis.user;
 
 import com.group.topsis.BoTieuChiChuan;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class UserInputChuanHoa {
 	private UserInputData userInputData;
 	private BoTieuChiChuan boTieuChiChuan;
@@ -17,8 +15,26 @@ public class UserInputChuanHoa {
 	public UserInputChuanHoa(UserInputData userInputData) {
 		super();
 		this.userInputData = userInputData;
-		boTieuChiChuan = userInputData.getBoTieuChi().getBoTieuChiChuanForUser();
-		boTrongSoChuan = userInputData.getBoTrongSo().getBoTrongSoChuan();
+		boTieuChiChuan = chuanHoaBoTieuChiUser(userInputData.getBoTieuChi());
+		boTrongSoChuan = chuanHoaBoTrongSo(userInputData.getBoTrongSo());
+	}
+
+	public BoTieuChiChuan chuanHoaBoTieuChiUser(BoTieuChi btc) {
+		double doCay = btc.getDoCay().getValue();
+		double doNgot = btc.getDoNgot().getValue();
+		double doDinhDuong = btc.getDoDinhDuong().getValue();
+		double doPhoBien = btc.getDoPhoBien().getValue();
+		double giaTien = btc.getGiaTien().getValue();
+		return new BoTieuChiChuan(doCay / 4.0, doNgot / 4.0, doDinhDuong / 2.0, doPhoBien / 2.0, giaTien / 2.0);
+	}
+
+	public BoTrongSoChuan chuanHoaBoTrongSo(BoTrongSo bts) {
+		int wDoCay = bts.getWDoCay();
+		int wDoNgot = bts.getWDoNgot();
+		int wDoDinhDuong = bts.getWDoDinhDuong();
+		int wDoPhoBien = bts.getWDoPhoBien();
+		int wGiaTien = bts.getWGiaTien();
+		return new BoTrongSoChuan(wDoCay / 4.0, wDoNgot / 4.0, wDoDinhDuong / 4.0, wDoPhoBien / 4.0, wGiaTien / 4.0);
 	}
 
 }

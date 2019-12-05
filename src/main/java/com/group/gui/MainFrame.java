@@ -287,7 +287,7 @@ public class MainFrame {
 		timKiemBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				topsis.setup(collectInfoOnBoLoc(), collectInfoOnBoTieuChi(), collectionInfoOnBoTrongSo());
-				ketquaTimKiemPanel.displayData(topsis.getKetQuaTimKiemMonAn());
+				ketquaTimKiemPanel.displayData(topsis.getKetQuaCuoiCung());
 			}
 		});
 		timKiemBTN.setBounds(345, 334, 215, 25);

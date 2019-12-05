@@ -4,9 +4,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.group.topsis.BoTieuChiChuan;
+import com.group.topsis.PhuongAn;
 
-public class TinhMaxMin {
-	private List<MonAnChuan> bangQuyetDinh;
+public class TinhPhuongAnLyTuongTotXau {
+	private List<PhuongAn> bangQuyetDinh;
 
 	private double doCayLonNhat;
 	private double doCayNhoNhat;
@@ -23,7 +24,7 @@ public class TinhMaxMin {
 	private double giaLonNhat;
 	private double giaNhoNhat;
 
-	public TinhMaxMin(List<MonAnChuan> bangQuyetDinh) {
+	public TinhPhuongAnLyTuongTotXau(List<PhuongAn> bangQuyetDinh) {
 		this.bangQuyetDinh = bangQuyetDinh;
 		setupMaxMin();
 	}
@@ -55,16 +56,16 @@ public class TinhMaxMin {
 				.get().getBoTieuChiChuan().getGiaTien();
 	}
 
-	public MonAnChuan getPhuongAnLyTuongTot() {
+	public PhuongAn getPhuongAnLyTuongTot() {
 		BoTieuChiChuan boTieuChiChuan = new BoTieuChiChuan(doCayLonNhat, doNgotLonNhat, doDinhDuongLonNhat,
 				doPhoBienLonNhat, giaLonNhat);
-		return new MonAnChuan(null, "A*", boTieuChiChuan);
+		return new PhuongAn(null, "A*", boTieuChiChuan);
 	}
 
-	public MonAnChuan getPhuongAnLyTuongXau() {
+	public PhuongAn getPhuongAnLyTuongXau() {
 		BoTieuChiChuan boTieuChiChuan = new BoTieuChiChuan(doCayNhoNhat, doNgotNhoNhat, doDinhDuongNhoNhat,
 				doPhoBienNhoNhat, giaNhoNhat);
-		return new MonAnChuan(null, "A-", boTieuChiChuan);
+		return new PhuongAn(null, "A-", boTieuChiChuan);
 	}
 
 }

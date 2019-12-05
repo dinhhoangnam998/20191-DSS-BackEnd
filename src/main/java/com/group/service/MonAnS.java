@@ -19,16 +19,15 @@ public class MonAnS {
 	@Autowired
 	public MonAnR maR;
 
-	public List<MonAn> timKiemKetQua(BoLoc boLoc) {
+	public List<MonAn> locMonAn(BoLoc boLoc) {
 		TheLoai theLoai = boLoc.getTheLoai();
 		QuocGia nguonGoc = boLoc.getNguonGoc();
 		int giaNhoNhat = boLoc.getGiaNhoNhat();
 		int giaLonNhat = boLoc.getGiaLonNhat();
-		List<MonAn> ketQuaBanDau;
-
 		boolean isAllTheLoai = theLoai.getTen().equals("ALL");
 		boolean isAllNguonGoc = nguonGoc.getTen().equals("ALL");
 
+		List<MonAn> ketQuaBanDau;
 		// Xet tung truong hop
 		if (isAllTheLoai && isAllNguonGoc) {
 			ketQuaBanDau = maR.findByGiaGreaterThanEqualAndGiaLessThanEqual(giaNhoNhat, giaLonNhat);
@@ -41,7 +40,6 @@ public class MonAnS {
 			ketQuaBanDau = maR.findByTheLoaiAndNguonGocAndGiaGreaterThanEqualAndGiaLessThanEqual(theLoai, nguonGoc,
 					giaNhoNhat, giaLonNhat);
 		}
-
 		// loai bo cac mon bi di ung
 		List<MonAn> ketQuaCuoi = new ArrayList<MonAn>();
 		for (MonAn ma : ketQuaBanDau) {
@@ -50,7 +48,6 @@ public class MonAnS {
 				ketQuaCuoi.add(ma);
 			}
 		}
-
 		return ketQuaCuoi;
 	}
 
@@ -71,11 +68,11 @@ public class MonAnS {
 		}
 		return result;
 	}
-	
+
 	public static String getOrderFormat(List<MonAn> mas) {
 		String result = "Bạn vừa order thành công các món:\n";
-		for(MonAn ma : mas) {
-			result += ma.getTen() + " - " + ma.getGia() + "\n"; 
+		for (MonAn ma : mas) {
+			result += ma.getTen() + " - " + ma.getGia() + "\n";
 		}
 		return result;
 	}
