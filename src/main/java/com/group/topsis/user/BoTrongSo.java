@@ -1,4 +1,4 @@
-package com.group.topsis;
+package com.group.topsis.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

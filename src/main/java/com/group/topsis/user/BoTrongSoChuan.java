@@ -1,4 +1,4 @@
-package com.group.topsis;
+package com.group.topsis.user;
 
 import com.group.enums.DoCay;
 import com.group.enums.DoDinhDuong;

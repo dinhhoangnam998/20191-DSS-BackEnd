@@ -1,10 +1,11 @@
-package com.group.topsis;
+package com.group.topsis.user;
 
 import com.group.enums.DoCay;
 import com.group.enums.DoDinhDuong;
 import com.group.enums.DoNgot;
 import com.group.enums.DoPhoBien;
 import com.group.enums.GiaTien;
+import com.group.topsis.BoTieuChiChuan;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class BoTieuChi {
 	private DoPhoBien doPhoBien;
 	private GiaTien giaTien;
 
-	public BoTieuChiChuan getBoTieuChiChuan() {
+	public BoTieuChiChuan getBoTieuChiChuanForUser() {
 		return new BoTieuChiChuan(doCay.getValue() / 4.0, doNgot.getValue() / 4.0, doDinhDuong.getValue() / 2.0,
 				doPhoBien.getValue() / 2.0, giaTien.getValue() / 2.0);
 	}

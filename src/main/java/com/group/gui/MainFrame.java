@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
@@ -37,10 +38,10 @@ import com.group.service.MonAnS;
 import com.group.service.NguyenLieuS;
 import com.group.service.QuocGiaS;
 import com.group.service.TheLoaiS;
-import com.group.topsis.BoLoc;
-import com.group.topsis.BoTieuChi;
-import com.group.topsis.BoTrongSo;
 import com.group.topsis.TOPSIS;
+import com.group.topsis.user.BoLoc;
+import com.group.topsis.user.BoTieuChi;
+import com.group.topsis.user.BoTrongSo;
 
 @Controller
 public class MainFrame {
@@ -285,9 +286,8 @@ public class MainFrame {
 		timKiemBTN = new JButton("Tìm món ăn phù hợp");
 		timKiemBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				List<MonAn> ketQuaTimKiem = topsis.userInputOccured(collectInfoOnBoLoc(), collectInfoOnBoTieuChi(),
-						collectionInfoOnBoTrongSo());
-				ketquaTimKiemPanel.displayData(ketQuaTimKiem);
+				topsis.setup(collectInfoOnBoLoc(), collectInfoOnBoTieuChi(), collectionInfoOnBoTrongSo());
+				ketquaTimKiemPanel.displayData(topsis.getKetQuaTimKiemMonAn());
 			}
 		});
 		timKiemBTN.setBounds(345, 334, 215, 25);
@@ -296,6 +296,7 @@ public class MainFrame {
 		datMonBTN = new JButton("\u0110\u1EB7t m\u00F3n");
 		datMonBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(frame, maS.getOrderFormat(danhSachDatMonPanel.tableModel.monAns));
 			}
 		});
 		datMonBTN.setBounds(345, 812, 215, 25);

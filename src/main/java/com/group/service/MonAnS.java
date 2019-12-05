@@ -11,7 +11,7 @@ import com.group.model.MonAnNguyenLieu;
 import com.group.model.QuocGia;
 import com.group.model.TheLoai;
 import com.group.repo.MonAnR;
-import com.group.topsis.BoLoc;
+import com.group.topsis.user.BoLoc;
 
 @Service
 public class MonAnS {
@@ -68,6 +68,14 @@ public class MonAnS {
 		for (String s : nguyenLieus) {
 			result += s;
 			result += ", ";
+		}
+		return result;
+	}
+	
+	public static String getOrderFormat(List<MonAn> mas) {
+		String result = "Bạn vừa order thành công các món:\n";
+		for(MonAn ma : mas) {
+			result += ma.getTen() + " - " + ma.getGia() + "\n"; 
 		}
 		return result;
 	}
