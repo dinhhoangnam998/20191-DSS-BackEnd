@@ -1,6 +1,7 @@
 package com.group.gui;
 
 import java.awt.Color;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -51,7 +52,6 @@ import com.group.topsis.user.BoLoc;
 import com.group.topsis.user.BoTieuChi;
 import com.group.topsis.user.BoTrongSo;
 import com.group.topsis.user.BoTrongSoChuan;
-import java.awt.SystemColor;
 
 @Controller
 public class MainFrame {
@@ -311,7 +311,13 @@ public class MainFrame {
 		datMonBTN = new JButton("\u0110\u1EB7t m\u00F3n");
 		datMonBTN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(frame, maS.getOrderFormat(danhSachDatMonPanel.tableModel.monAns));
+				List<MonAn> mas = danhSachDatMonPanel.tableModel.monAns;
+				JOptionPane.showMessageDialog(frame, maS.getOrderFormat(mas));
+				for (MonAn ma : mas) {
+					ma.setDoPhoBien(ma.getDoPhoBien() + 1);
+					maS.maR.save(ma);
+				}
+
 			}
 		});
 		datMonBTN.setBounds(345, 812, 215, 25);
@@ -584,7 +590,8 @@ public class MainFrame {
 		topsisPanel.add(bqd);
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(null, "M\u1ED9t s\u1ED1 th\u00F4ng tin", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBorder(new TitledBorder(null, "M\u1ED9t s\u1ED1 th\u00F4ng tin", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
 		panel_3.setBackground(SystemColor.control);
 		panel_3.setBounds(12, 599, 902, 92);
 		topsisPanel.add(panel_3);
@@ -826,16 +833,18 @@ public class MainFrame {
 				+ tscdophobien.getText() + "  " + tscgiatien.getText());
 		BoTieuChiChuan t = topsis.getPhuongAnLyTuongTot().getBoTieuChiChuan();
 		BoTieuChiChuan x = topsis.getPhuongAnLyTuongXau().getBoTieuChiChuan();
-		lblAtot.setText("(" + df.format(t.getDoCay()) + ", " + df.format(t.getDoNgot()) + ", " + df.format(t.getDoDinhDuong()) + ", " + df.format(t.getDoPhoBien())
-				+ ", " + df.format(t.getGiaTien()) + ")");
-		lblAxau.setText("(" + df.format(x.getDoCay()) + ", " + df.format(x.getDoNgot()) + ", " + df.format(x.getDoDinhDuong()) + ", " + df.format(x.getDoPhoBien())
-				+ ", " + df.format(x.getGiaTien()) + ")");
+		lblAtot.setText(
+				"(" + df.format(t.getDoCay()) + ", " + df.format(t.getDoNgot()) + ", " + df.format(t.getDoDinhDuong())
+						+ ", " + df.format(t.getDoPhoBien()) + ", " + df.format(t.getGiaTien()) + ")");
+		lblAxau.setText(
+				"(" + df.format(x.getDoCay()) + ", " + df.format(x.getDoNgot()) + ", " + df.format(x.getDoDinhDuong())
+						+ ", " + df.format(x.getDoPhoBien()) + ", " + df.format(x.getGiaTien()) + ")");
 	}
 
 	private void populaDataToTableOnTopsis() {
 		dsmal.displayData(topsis.getKetQuaLocMonAn());
 		chttma.displayData(topsis.getMonAnDaChuanHoa());
 		bqd.displayData(topsis.getBangGiaTriV());
-		
+
 	}
 }

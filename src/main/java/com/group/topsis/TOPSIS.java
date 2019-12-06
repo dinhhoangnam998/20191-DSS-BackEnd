@@ -19,7 +19,6 @@ import com.group.topsis.user.BoTrongSo;
 import com.group.topsis.user.BoTrongSoChuan;
 import com.group.topsis.user.UserInputChuanHoa;
 import com.group.topsis.user.UserInputData;
-import com.group.utils.Printer;
 
 import lombok.Getter;
 
