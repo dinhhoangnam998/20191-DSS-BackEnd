@@ -586,14 +586,14 @@ public class MainFrame {
 		bqd.setBorder(
 				new TitledBorder(UIManager.getBorder("TitledBorder.border"), "B\u1EA3ng quy\u1EBFt \u0111\u1ECBnh",
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		bqd.setBounds(12, 694, 902, 143);
+		bqd.setBounds(12, 659, 902, 178);
 		topsisPanel.add(bqd);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new TitledBorder(null, "M\u1ED9t s\u1ED1 th\u00F4ng tin", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		panel_3.setBackground(SystemColor.control);
-		panel_3.setBounds(12, 599, 902, 92);
+		panel_3.setBounds(12, 599, 902, 54);
 		topsisPanel.add(panel_3);
 		panel_3.setLayout(null);
 
@@ -602,32 +602,16 @@ public class MainFrame {
 		panel_3.add(lblHmF);
 
 		lblBTrngS = new JLabel("Bộ trọng số");
-		lblBTrngS.setBounds(12, 63, 79, 16);
+		lblBTrngS.setBounds(491, 24, 79, 16);
 		panel_3.add(lblBTrngS);
 
 		lblThanhamf = new JLabel("return 1 - Math.abs(giaTriCuaUser - giaTriCuaMonAn)");
-		lblThanhamf.setBounds(103, 24, 309, 16);
+		lblThanhamf.setBounds(64, 24, 309, 16);
 		panel_3.add(lblThanhamf);
 
 		lblBotrongso = new JLabel("botrongso");
-		lblBotrongso.setBounds(103, 63, 244, 16);
+		lblBotrongso.setBounds(582, 24, 244, 16);
 		panel_3.add(lblBotrongso);
-
-		lblA = new JLabel("A*");
-		lblA.setBounds(459, 24, 56, 16);
-		panel_3.add(lblA);
-
-		lblA_1 = new JLabel("A-");
-		lblA_1.setBounds(459, 63, 56, 16);
-		panel_3.add(lblA_1);
-
-		lblAtot = new JLabel("aTot");
-		lblAtot.setBounds(500, 24, 263, 16);
-		panel_3.add(lblAtot);
-
-		lblAxau = new JLabel("aXau");
-		lblAxau.setBounds(500, 63, 263, 16);
-		panel_3.add(lblAxau);
 		frame.getContentPane().setLayout(groupLayout);
 
 	}
@@ -759,10 +743,6 @@ public class MainFrame {
 	private JLabel lblBTrngS;
 	private JLabel lblThanhamf;
 	private JLabel lblBotrongso;
-	private JLabel lblA;
-	private JLabel lblA_1;
-	private JLabel lblAtot;
-	private JLabel lblAxau;
 
 	private void injectDataToTopsisPanel() {
 		injectDataBoLoc();
@@ -833,18 +813,18 @@ public class MainFrame {
 				+ tscdophobien.getText() + "  " + tscgiatien.getText());
 		BoTieuChiChuan t = topsis.getPhuongAnLyTuongTot().getBoTieuChiChuan();
 		BoTieuChiChuan x = topsis.getPhuongAnLyTuongXau().getBoTieuChiChuan();
-		lblAtot.setText(
-				"(" + df.format(t.getDoCay()) + ", " + df.format(t.getDoNgot()) + ", " + df.format(t.getDoDinhDuong())
-						+ ", " + df.format(t.getDoPhoBien()) + ", " + df.format(t.getGiaTien()) + ")");
-		lblAxau.setText(
-				"(" + df.format(x.getDoCay()) + ", " + df.format(x.getDoNgot()) + ", " + df.format(x.getDoDinhDuong())
-						+ ", " + df.format(x.getDoPhoBien()) + ", " + df.format(x.getGiaTien()) + ")");
+//		lblAtot.setText(
+//				"(" + df.format(t.getDoCay()) + ", " + df.format(t.getDoNgot()) + ", " + df.format(t.getDoDinhDuong())
+//						+ ", " + df.format(t.getDoPhoBien()) + ", " + df.format(t.getGiaTien()) + ")");
+//		lblAxau.setText(
+//				"(" + df.format(x.getDoCay()) + ", " + df.format(x.getDoNgot()) + ", " + df.format(x.getDoDinhDuong())
+//						+ ", " + df.format(x.getDoPhoBien()) + ", " + df.format(x.getGiaTien()) + ")");
 	}
 
 	private void populaDataToTableOnTopsis() {
 		dsmal.displayData(topsis.getKetQuaLocMonAn());
 		chttma.displayData(topsis.getMonAnDaChuanHoa());
-		bqd.displayData(topsis.getBangGiaTriV());
+		bqd.displayData(topsis.getBangQuyetDinh());
 
 	}
 }

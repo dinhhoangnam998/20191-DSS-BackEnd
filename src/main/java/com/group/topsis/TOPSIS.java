@@ -40,7 +40,7 @@ public class TOPSIS {
 	private List<PhuongAn> khoangCachToiPhuongAnLyTuongTot;
 	private List<PhuongAn> khoangCachToiPhuongAnLyTuongXau;
 
-	private List<PhuongAn> doDoTuongTu;
+	private List<PhuongAn> bangQuyetDinh;
 	private List<MonAn> ketQuaCuoiCung;
 
 	@Autowired
@@ -54,7 +54,8 @@ public class TOPSIS {
 		bangGiaTriR = tinhBangGiaTriR();
 		bangGiaTriV = tinhBangGiaTriV();
 		tinhPhuongAnLyTuongTotVaXau();
-		tinhToanSAndC();
+		taoBangQuyetDinh();
+		tinhToanGiaTriTrenBangQuyetDinh();
 		tinhKetQuaCuoiCung();
 	}
 
@@ -105,8 +106,17 @@ public class TOPSIS {
 		phuongAnLyTuongXau = tinhMaxMin.getPhuongAnLyTuongXau();
 	}
 
-	public void tinhToanSAndC() {
+	public void taoBangQuyetDinh() {
+		bangQuyetDinh = new ArrayList<>();
+		bangQuyetDinh.add(phuongAnLyTuongTot);
+		bangQuyetDinh.add(phuongAnLyTuongXau);
 		for (PhuongAn pa : bangGiaTriV) {
+			bangQuyetDinh.add(pa);
+		}
+	}
+
+	private void tinhToanGiaTriTrenBangQuyetDinh() {
+		for (PhuongAn pa : bangQuyetDinh) {
 			pa.setSTot(tinhKhoangCach(pa, phuongAnLyTuongTot));
 			pa.setSXau(tinhKhoangCach(pa, phuongAnLyTuongXau));
 			pa.setC(tinhC(pa));
@@ -130,6 +140,7 @@ public class TOPSIS {
 
 	public void tinhKetQuaCuoiCung() {
 		bangGiaTriV.sort(Comparator.comparing(PhuongAn::getC).reversed());
+		bangQuyetDinh.sort(Comparator.comparing(PhuongAn::getC).reversed());
 		ketQuaCuoiCung = bangGiaTriV.stream().map(i -> maS.maR.getOne(i.getId())).collect(Collectors.toList());
 
 	}
